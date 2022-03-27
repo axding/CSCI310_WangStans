@@ -18,6 +18,10 @@
         <action
             android:id="@+id/action_FirstFragment_to_BookingFragment"
             app:destination="@id/bookingFragment" />
+
+        <action
+            android:id="@+id/action_FirstFragment_to_LoginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -34,4 +38,9 @@
         android:name="com.example.csci310_wangstans.BookingFragment"
         android:label="fragment_booking"
         tools:layout="@layout/fragment_booking" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.csci310_wangstans.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>
