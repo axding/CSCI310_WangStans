@@ -1,5 +1,7 @@
 package com.example.csci310_wangstans;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,17 +24,57 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Vector;
 
 public class RecCenterFragment extends Fragment {
 
     private FragmentReccenterBinding binding;
+    private Vector<Booking> bookings;
+    private SharedPreferences sharedBookings;
+    private SharedPreferences.Editor sharedBookingsEditor;
+    private SharedPreferences sharedWaitlist;
+    private SharedPreferences.Editor sharedWaitlistEditor;
+
+    @Override
+    public void onAttach(Context context) {
+        sharedBookings = context.getSharedPreferences("sharedBooking", Context.MODE_PRIVATE);
+        sharedBookingsEditor = sharedBookings.edit();
+
+        sharedWaitlist = context.getSharedPreferences("sharedWaitlist", Context.MODE_PRIVATE);
+
+        super.onAttach(context);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentReccenterBinding.inflate(inflater, container, false);
+
+        try {
+            InputStream is = getContext().getAssets().open("db/cResDB.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line = reader.readLine();
+            while(line != null){
+                String[] resInfo = line.split(",");
+                String key = resInfo[0];
+                String value = String.join(",",resInfo);
+                sharedBookingsEditor.putString(key, value);
+                sharedBookingsEditor.apply();
+                line = reader.readLine();
+            }
+
+            is.close();
+            reader.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return binding.getRoot();
     }
 
@@ -44,47 +86,34 @@ public class RecCenterFragment extends Fragment {
         Calendar today = Calendar.getInstance();
         datePicker.setMinDate(today.getTimeInMillis());
 
-        Calendar threeDaysLater = (Calendar) today.clone();
-        threeDaysLater.add(Calendar.DATE, 2);
-        datePicker.setMaxDate(threeDaysLater.getTimeInMillis());
+        Calendar twoDaysLater = (Calendar) today.clone();
+        twoDaysLater.add(Calendar.DATE, 2);
+        datePicker.setMaxDate(twoDaysLater.getTimeInMillis());
 
         binding.updateDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LinearLayout ll = binding.bookingDisplay;
                 ll.removeAllViews();
-                String date = (datePicker.getMonth()+1) + "" + datePicker.getDayOfMonth() + "" + datePicker.getYear();
+                String date = (datePicker.getMonth()+1) + "-" + datePicker.getDayOfMonth() + "-" + datePicker.getYear();
                 readReservationFile(date);
             }
         });
     }
 
     private void readReservationFile(String date) {
-        try {
-            InputStream is = getContext().getAssets().open("db/cResDB.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String line = reader.readLine();
-            Vector<Booking> bookings = new Vector<>();
-            while(line != null){
-                String[] resInfo = line.split(",");
-                if (resInfo[3].equals(date)) {
-                    bookings.add(new Booking(resInfo));
-                }
-                line = reader.readLine();
+        bookings = new Vector<>();
+        Map<String,?> keys = sharedBookings.getAll();
+
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            String data = entry.getValue().toString();
+            String[] dataVals = data.split(",");
+            if (dataVals[2].equals(date)) {
+                bookings.add(new Booking(dataVals));
             }
+        }
 
-            System.out.println(bookings.size());
-            updateBookings(bookings);
-
-            is.close();
-            reader.close();
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        updateBookings(bookings);
 
     }
 
@@ -127,6 +156,7 @@ public class RecCenterFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         actionButton.setText("Added to the waitlist");
+                        addToWaitlist("0", booking);
                     }
                 });
             }
@@ -148,6 +178,18 @@ public class RecCenterFragment extends Fragment {
             }
         }
     }
+
+    private void addToWaitlist(String userId, Booking booking) {
+        String resId = booking.getResId();
+        sharedWaitlistEditor.putString(resId, sharedBookings.getString(resId, "") + userId);
+        booking.addToWaitlist(userId);
+    }
+
+//    private void addReservation(String userId, Booking booking) {
+//        String resId = booking.getResId();
+//        sharedWaitlistEditor.putString(resId, sharedBookings.getString(resId, "") + userId);
+//        booking.addToWaitlist(userId);
+//    }
 
     @Override
     public void onDestroyView() {

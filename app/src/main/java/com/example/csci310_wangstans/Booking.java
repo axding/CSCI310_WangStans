@@ -1,6 +1,7 @@
 package com.example.csci310_wangstans;
 
 import java.util.Arrays;
+import java.util.Vector;
 
 public class Booking {
     private String resId;
@@ -8,7 +9,7 @@ public class Booking {
     private String endTime;
     private String[] users;
     private int numUsers;
-    private String[] waitlist;
+    private Vector<String> waitlist;
 
     public Booking(String[] resInfo) {
         this.resId = resInfo[0];
@@ -21,7 +22,7 @@ public class Booking {
         else {
             this.users = new String[0];
         }
-        this.waitlist = new String[0];
+        this.waitlist = new Vector<>();
     }
 
     private String parseTime(String time) {
@@ -54,7 +55,11 @@ public class Booking {
         return users;
     }
 
-    public String[] getWaitlist() {
+    public Vector<String> getWaitlist() {
         return waitlist;
+    }
+
+    public void addToWaitlist(String userId) {
+        waitlist.add(userId);
     }
 }
