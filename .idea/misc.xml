@@ -7,6 +7,9 @@
         <entry key="app/src/main/res/layout/content_main.xml" value="0.23177083333333334" />
         <entry key="app/src/main/res/layout/fragment_booking.xml" value="0.2859181722005208" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.23177083333333334" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.498989898989899" />
+        <entry key="app/src/main/res/layout/fragment_map_home_page.xml" value="0.224601593625498" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.23177083333333334" />
       </map>
     </option>
