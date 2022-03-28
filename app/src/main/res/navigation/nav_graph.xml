@@ -42,5 +42,38 @@
         android:id="@+id/loginFragment"
         android:name="com.example.csci310_wangstans.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_LoginFragment_to_RegisterFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_LoginFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapHomePage"
+        android:name="com.example.csci310_wangstans.MapHomePage"
+        android:label="fragment_map_home_page"
+        tools:layout="@layout/fragment_map_home_page">
+        <action
+            android:id="@+id/action_MapHomePage_to_BookingFragment"
+            app:destination="@id/bookingFragment" />
+        <action
+            android:id="@+id/action_MapHomePage_to_ReservationFragment"
+            app:destination="@id/reservationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.csci310_wangstans.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_RegisterFragment_to_LoginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reservationFragment"
+        android:name="com.example.csci310_wangstans.ReservationFragment"
+        android:label="fragment_reservation"
+        tools:layout="@layout/fragment_reservation" />
 </navigation>
