@@ -107,8 +107,10 @@ public class RecCenterFragment extends Fragment {
 
         for(Map.Entry<String,?> entry : keys.entrySet()){
             String data = entry.getValue().toString();
+            System.out.println(data);
             String[] dataVals = data.split(",");
-            if (dataVals[2].equals(date)) {
+            System.out.println(date);
+            if (dataVals[3].equals(date)) {
                 bookings.add(new Booking(dataVals));
             }
         }
