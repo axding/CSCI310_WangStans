@@ -14,7 +14,7 @@
 
     <ScrollView
         android:layout_width="200dp"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:layout_margin="10dp"
         android:background="@color/gray">
 
@@ -29,7 +29,7 @@
                 android:id="@+id/upcomingReservations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upcoming Registrations"
+                android:text="Upcoming Reservations"
                 android:textColor="#000"
                 android:textSize="15dp"
                 android:textStyle="bold"
@@ -43,48 +43,47 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="270dp"
-        android:layout_marginTop="530dp"
-        android:background="@null" />
+        android:layout_marginTop="490dp"
+        android:background="@android:color/transparent" />
 
     <View
         android:id="@+id/village"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="288dp"
-        android:layout_marginTop="248dp"
-        android:background="@null" />
+        android:layout_marginLeft="285dp"
+        android:layout_marginTop="215dp"
+        android:background="@android:color/transparent" />
 
     <View
         android:id="@+id/lyon"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="125dp"
-        android:layout_marginTop="295dp"
-        android:background="@null" />
+        android:layout_marginTop="260dp"
+        android:background="@android:color/transparent" />
 
     <View
         android:id="@+id/racquetball"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="92dp"
-        android:layout_marginTop="270dp"
-        android:background="@null" />
+        android:layout_marginTop="240dp"
+        android:background="@android:color/transparent" />
 
     <View
         android:id="@+id/uac"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="95dp"
-        android:layout_marginTop="315dp"
-        android:background="@null" />
+        android:layout_marginTop="280dp"
+        android:background="@android:color/transparent" />
 
     <View
         android:id="@+id/track"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="140dp"
-        android:layout_marginTop="490dp"
-        android:background="@null" />
-
+        android:layout_marginTop="455dp"
+        android:background="@android:color/transparent" />
 
 </RelativeLayout>
