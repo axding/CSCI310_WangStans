@@ -1,14 +1,26 @@
 package com.example.csci310_wangstans;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,10 +29,20 @@ import androidx.navigation.fragment.NavHostFragment;
  */
 public class RegisterFragment extends Fragment {
     Button buttonLogin, buttonRegister;
-    EditText editUserName, editPassword, editEmail;
+    EditText editUserName, editName, editPassword, editEmail;
+    String username, name, email, password;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     public RegisterFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        sharedPreferences = context.getSharedPreferences( "usersFile", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        super.onAttach(context);
     }
 
     /**
@@ -48,6 +70,7 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         editUserName = view.findViewById(R.id.editUserName);
+        editName = view.findViewById(R.id.editName);
         editPassword = view.findViewById(R.id.editPassword);
         editEmail = view.findViewById(R.id.editEmail);
 
@@ -56,6 +79,18 @@ public class RegisterFragment extends Fragment {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                username = editUserName.getText().toString();
+                name = editName.getText().toString();
+                email = editEmail.getText().toString();
+                password = editPassword.getText().toString();
+
+                editor.putString("username", username);
+                editor.putString("name", name);
+                editor.putString("password", password);
+                editor.putString("email", email);
+                editor.apply();
+                Toast.makeText(getContext(), "Registered", Toast.LENGTH_SHORT).show();
+
                 NavHostFragment.findNavController(RegisterFragment.this)
                         .navigate(R.id.action_RegisterFragment_to_LoginFragment);
             }
@@ -63,4 +98,5 @@ public class RegisterFragment extends Fragment {
 
         return view;
     }
+
 }

@@ -1,5 +1,7 @@
 package com.example.csci310_wangstans;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +23,9 @@ public class LoginFragment extends Fragment {
 
     Button buttonLogin, buttonRegister;
     EditText editUserName, editPassword;
+    String username, password;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -35,6 +41,13 @@ public class LoginFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        sharedPreferences = context.getSharedPreferences( "usersFile", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        super.onAttach(context);
     }
 
     @Override
@@ -56,8 +69,21 @@ public class LoginFragment extends Fragment {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(LoginFragment.this)
-                        .navigate(R.id.action_LoginFragment_to_MapHomePage);
+                username = editUserName.getText().toString();
+                password = editPassword.getText().toString();
+
+                //make count to iterate through multiple users
+                String uName, uPass;
+                uName = sharedPreferences.getString( "username", null);
+                uPass = sharedPreferences.getString( "password", null);
+
+                if(username.equals(uName) && password.equals(uPass)) {
+                    Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
+                    NavHostFragment.findNavController(LoginFragment.this)
+                            .navigate(R.id.action_LoginFragment_to_MapHomePage);
+                } else {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
