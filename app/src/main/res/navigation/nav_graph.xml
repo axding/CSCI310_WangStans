@@ -35,9 +35,9 @@
     </fragment>
     <fragment
         android:id="@+id/bookingFragment"
-        android:name="com.example.csci310_wangstans.BookingFragment"
+        android:name="com.example.csci310_wangstans.RecCenterFragment"
         android:label="fragment_booking"
-        tools:layout="@layout/fragment_booking" />
+        tools:layout="@layout/fragment_reccenter" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.csci310_wangstans.LoginFragment"
