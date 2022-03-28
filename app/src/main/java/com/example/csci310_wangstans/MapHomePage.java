@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +19,7 @@ import android.widget.Button;
 public class MapHomePage extends Fragment {
 
     View hsc, lyon, racquetball, uac, village, track;
+    LinearLayout reservations;
 
     public MapHomePage() {
         // Required empty public constructor
@@ -49,6 +51,16 @@ public class MapHomePage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map_home_page, container, false);
+
+        reservations = (LinearLayout) view.findViewById(R.id.reservation);
+
+        reservations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(MapHomePage.this)
+                        .navigate(R.id.action_MapHomePage_to_ReservationFragment);
+            }
+        });
 
         hsc = view.findViewById(R.id.hsc);
         uac = view.findViewById(R.id.uac);

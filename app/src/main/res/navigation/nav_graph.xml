@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_MapHomePage_to_BookingFragment"
             app:destination="@id/bookingFragment" />
+        <action
+            android:id="@+id/action_MapHomePage_to_ReservationFragment"
+            app:destination="@id/reservationFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -68,4 +71,9 @@
             android:id="@+id/action_RegisterFragment_to_LoginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/reservationFragment"
+        android:name="com.example.csci310_wangstans.ReservationFragment"
+        android:label="fragment_reservation"
+        tools:layout="@layout/fragment_reservation" />
 </navigation>
