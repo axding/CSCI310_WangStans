@@ -27,7 +27,7 @@ import java.util.Vector;
 public class MapHomePage extends Fragment {
 
     View hsc, lyon, racquetball, uac, village, track;
-    TextView reservations;
+    LinearLayout reservations;
 
     Vector<Reservation> allUserRes = new Vector<>();
     Vector<Reservation> comingRes = new Vector<>();
@@ -67,7 +67,7 @@ public class MapHomePage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_map_home_page, container, false);
         binding = FragmentMapHomePageBinding.inflate(inflater, container, false);
 
-        reservations = view.findViewById(R.id.upcomingReservations);
+        reservations = (LinearLayout) view.findViewById(R.id.reservations);
         loadQuickView();
         reservations.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,13 +132,15 @@ public class MapHomePage extends Fragment {
             }
         });
 
-        return binding.getRoot();
+        //return binding.getRoot();
+        return view;
 
     }
 
     private void loadQuickView() {
         //load info
         getUpcomingEvents();
+
         loadWindow();
     }
 
@@ -203,9 +205,6 @@ public class MapHomePage extends Fragment {
                 }
             }
         }
-
-
-
     }
 
     private boolean isUpcoming(Reservation res) {
