@@ -1,13 +1,14 @@
 package com.example.csci310_wangstans;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Vector;
 
 public class Booking {
     private String resId;
     private String startTime;
     private String endTime;
-    private String[] users;
+    private Vector<String> users;
     private int numUsers;
     private Vector<String> waitlist;
 
@@ -16,11 +17,9 @@ public class Booking {
         this.startTime = parseTime(resInfo[1]);
         this.endTime = parseTime(resInfo[2]);
         this.numUsers = resInfo.length - 4;
+        this.users = new Vector<>();
         if (numUsers > 0) {
-            this.users = Arrays.copyOfRange(resInfo, 4, resInfo.length);
-        }
-        else {
-            this.users = new String[0];
+            Collections.addAll(this.users, Arrays.copyOfRange(resInfo, 4, resInfo.length));
         }
         this.waitlist = new Vector<>();
     }
@@ -51,7 +50,7 @@ public class Booking {
         return numUsers;
     }
 
-    public String[] getUsers() {
+    public Vector<String> getUsers() {
         return users;
     }
 
@@ -61,5 +60,9 @@ public class Booking {
 
     public void addToWaitlist(String userId) {
         waitlist.add(userId);
+    }
+
+    public void addToUsers(String userId) {
+        users.add(userId);
     }
 }

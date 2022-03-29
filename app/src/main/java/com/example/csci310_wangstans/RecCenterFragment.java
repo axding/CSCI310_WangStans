@@ -38,19 +38,24 @@ public class RecCenterFragment extends Fragment {
     private SharedPreferences sharedWaitlist;
     private SharedPreferences.Editor sharedWaitlistEditor;
 
-//    private SharedPreferences usersFile;
-//    private SharedPreferences.Editor usersFileEditor;
+    private SharedPreferences usersFile;
+    private SharedPreferences.Editor usersFileEditor;
 
     @Override
     public void onAttach(Context context) {
         sharedBookings = context.getSharedPreferences("sharedBooking", Context.MODE_PRIVATE);
         sharedBookingsEditor = sharedBookings.edit();
+        sharedBookingsEditor.putString("c4", "c4,2000,2050,3-30-2022");
 
         sharedWaitlist = context.getSharedPreferences("sharedWaitlist", Context.MODE_PRIVATE);
         sharedWaitlistEditor = sharedWaitlist.edit();
 
-//        usersFile = context.getSharedPreferences("userFile", Context.MODE_PRIVATE);
-//        usersFileEditor = usersFile.edit();
+        usersFile = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
+        usersFileEditor = usersFile.edit();
+        if (!usersFile.contains("reservations")) {
+            usersFileEditor.putString("reservations", "");
+            usersFileEditor.apply();
+        }
 
         super.onAttach(context);
     }
@@ -160,24 +165,39 @@ public class RecCenterFragment extends Fragment {
             actionButton.setLayoutParams(layoutParams);
 
             if (availSpots == 0) {
-                actionButton.setText("Notify Me");
-                actionButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        actionButton.setText("Added to the waitlist");
-                        addToWaitlist("0", booking);
-                    }
-                });
+                if (sharedWaitlist.getString(booking.getResId(), "").contains("0")) {
+                    actionButton.setEnabled(false);
+                    actionButton.setText("Added to the waitlist");
+                }
+                else {
+                    actionButton.setText("Notify Me");
+                    actionButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            actionButton.setText("Added to the waitlist");
+                            actionButton.setEnabled(false);
+                            addToWaitlist("0", booking);
+                        }
+                    });
+                }
             }
             else {
-                actionButton.setText("Book Now");
-                actionButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        actionButton.setText("Booked!");
-                        availText.setText((availSpots-1) + " spots open");
-                    }
-                });
+                if (usersFile.getString("reservations", "").contains(booking.getResId())) {
+                    actionButton.setEnabled(false);
+                    actionButton.setText("Booked!");
+                }
+                else {
+                    actionButton.setText("Book Now");
+                    actionButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            actionButton.setEnabled(false);
+                            actionButton.setText("Booked!");
+                            availText.setText((availSpots-1) + " spots open");
+                            addReservation("0", booking);
+                        }
+                    });
+                }
             }
 
             if (layout != null) {
@@ -200,11 +220,18 @@ public class RecCenterFragment extends Fragment {
         booking.addToWaitlist(userId);
     }
 
-//    private void addReservation(Booking booking) {
-//        String resId = booking.getResId();
-//        sharedWaitlistEditor.putString(resId, sharedBookings.getString(resId, "") + userId);
-//        booking.addToWaitlist(userId);
-//    }
+    private void addReservation(String userId, Booking booking) {
+        sharedBookingsEditor.putString(booking.getResId(), sharedBookings.getString(booking.getResId(), "") + "," + userId);
+        sharedBookingsEditor.apply();
+
+        if (usersFile.getString("reservations", "").equals("")) {
+            usersFileEditor.putString("reservations", booking.getResId());
+        }
+        else {
+            usersFileEditor.putString("reservations", sharedWaitlist.getString("reservations", "") + "," + booking.getResId());
+        }
+        usersFileEditor.apply();
+    }
 
     @Override
     public void onDestroyView() {
