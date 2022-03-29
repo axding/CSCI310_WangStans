@@ -142,7 +142,7 @@ public class MapHomePage extends Fragment {
         });
     }
 
-        private void loadQuickView() {
+    private void loadQuickView() {
         //load info
         allUserRes.clear();
         comingRes.clear();
@@ -155,6 +155,7 @@ public class MapHomePage extends Fragment {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(10,10,10,0);
 
         if(comingRes.size()==0){
             TextView noResText = new TextView(getContext());
@@ -186,10 +187,16 @@ public class MapHomePage extends Fragment {
             dateText.setGravity(Gravity.CENTER);
             dateText.setText(res.getDate());
 
+            TextView buffer = new TextView(getContext());
+            buffer.setLayoutParams(layoutParams);
+            buffer.setGravity(Gravity.CENTER);
+            buffer.setText("-------------------------------");
+
             if (layout != null) {
                 layout.addView(loc);
                 layout.addView(dateText);
                 layout.addView(timeText);
+                layout.addView(buffer);
             }
         }
     }

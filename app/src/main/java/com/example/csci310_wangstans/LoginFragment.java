@@ -85,7 +85,6 @@ public class LoginFragment extends Fragment {
                         if(username.equals(uName) && password.equals(uPass)) {
                             editor.putInt("currentUser", i);
                             editor.apply();
-                            Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
                             NavHostFragment.findNavController(LoginFragment.this)
                                     .navigate(R.id.action_LoginFragment_to_MapHomePage);
                         } else {
