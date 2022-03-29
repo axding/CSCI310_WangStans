@@ -162,27 +162,29 @@ public class CRecCenterFragment extends Fragment {
 
             String userId = "" + usersFile.getInt("currentUser", 0);
 
-            if (availSpots == 0) {
-                if (sharedWaitlist.getString(booking.getResId(), "").contains(userId)) {
-                    actionButton.setEnabled(false);
-                    actionButton.setText("Added to the waitlist");
-                }
-                else {
-                    actionButton.setText("Notify Me");
-                    actionButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            actionButton.setText("Added to the waitlist");
-                            actionButton.setEnabled(false);
-                            addToWaitlist(userId, booking);
-                        }
-                    });
-                }
+            if (userInRes(userId, booking)) {
+                System.out.println("enter");
+                actionButton.setEnabled(false);
+                actionButton.setText("Booked!");
             }
             else {
-                if (usersFile.getString(userId, "").contains(booking.getResId())) {
-                    actionButton.setEnabled(false);
-                    actionButton.setText("Booked!");
+                System.out.println("did not enter");
+                if (availSpots == 0) {
+                    if (sharedWaitlist.getString(booking.getResId(), "").contains(userId)) {
+                        actionButton.setEnabled(false);
+                        actionButton.setText("Added to the waitlist");
+                    }
+                    else {
+                        actionButton.setText("Notify Me");
+                        actionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                actionButton.setText("Added to the waitlist");
+                                actionButton.setEnabled(false);
+                                addToWaitlist(userId, booking);
+                            }
+                        });
+                    }
                 }
                 else {
                     actionButton.setText("Book Now");
@@ -191,7 +193,7 @@ public class CRecCenterFragment extends Fragment {
                         public void onClick(View view) {
                             actionButton.setEnabled(false);
                             actionButton.setText("Booked!");
-                            availText.setText((availSpots-1) + " spots open");
+                            availText.setText((availSpots - 1) + " spots open");
                             addReservation(userId, booking);
                         }
                     });
@@ -204,6 +206,20 @@ public class CRecCenterFragment extends Fragment {
                 layout.addView(actionButton);
             }
         }
+    }
+
+    private boolean userInRes(String userId, Booking booking) {
+        String[] resInfo = sharedBookings.getString(booking.getResId(), "").split(",");
+        if (resInfo.length < 5) {
+            return false;
+        }
+
+        for (int i=0; i<resInfo.length; i++) {
+            System.out.println(resInfo[i]);
+            if (resInfo[i].equals(userId)) return true;
+        }
+
+        return false;
     }
 
     private void addToWaitlist(String userId, Booking booking) {
