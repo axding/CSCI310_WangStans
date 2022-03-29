@@ -109,6 +109,8 @@ public class ReservationFragment extends Fragment {
         binding.pastResButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                populateRes();
+
 //                LinearLayout ll = binding.bookingDisplay;
 //                ll.removeAllViews();
 //                String date = (datePicker.getMonth()+1) + "" + datePicker.getDayOfMonth() + "" + datePicker.getYear();
@@ -121,6 +123,8 @@ public class ReservationFragment extends Fragment {
         binding.comingResButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                populateRes();
+
                 LinearLayout ll = binding.resDisplay;
                 ll.removeAllViews();
 //                String date = (datePicker.getMonth()+1) + "" + datePicker.getDayOfMonth() + "" + datePicker.getYear();
@@ -198,6 +202,7 @@ public class ReservationFragment extends Fragment {
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     cancelButton.setEnabled(false);
                     cancelButton.setText("Reservation Cancelled.");
                     System.out.println(res.getResEnc());
@@ -208,7 +213,6 @@ public class ReservationFragment extends Fragment {
                     int currUser=userDB.getInt("currentUser", -1);
                     String userString=userDB.getString(currUser+"", "none");
 
-                    userString+=", c2, c3";
                     //remove the enc
                     String newString="";
                     String userArr[]=userString.split(",");
@@ -217,10 +221,10 @@ public class ReservationFragment extends Fragment {
                            continue;
                         }
                         else{
-                            newString+=userArr[i]+", ";
+                            newString+=userArr[i]+",";
                         }
                     }
-                    newString=newString.substring(0,newString.length()-2);
+                    newString=newString.substring(0,newString.length()-1);
                     System.out.println(newString);
                     //push back into pref
                     editor = userDB.edit();
@@ -333,6 +337,9 @@ public class ReservationFragment extends Fragment {
 
     }
     private void populateRes(){
+        allUserRes.clear();
+        pastRes.clear();
+        comingRes.clear();
         int userID=1;
         String info=findUserInfo();
 
@@ -347,7 +354,7 @@ public class ReservationFragment extends Fragment {
 
         if(userInfo.length==4){
             System.out.println("No reservations!");
-            //return;
+            return;
         }
 
         System.out.println("We have something");
@@ -360,8 +367,6 @@ public class ReservationFragment extends Fragment {
                 resIDs.add(userInfo[i]);
             }
         }
-        resIDs.add("c2");
-        resIDs.add("c3");
 
         System.out.println("Here are the reservation id's");
         for(int i=0;i<resIDs.size();i++){
