@@ -3,10 +3,6 @@ package com.example.csci310_wangstans;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +11,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.csci310_wangstans.databinding.FragmentReccenterBinding;
 
@@ -27,7 +26,7 @@ import java.util.Calendar;
 import java.util.Map;
 import java.util.Vector;
 
-public class RecCenterFragment extends Fragment {
+public class RRecCenterFragment extends Fragment {
 
     private FragmentReccenterBinding binding;
     private Vector<Booking> bookings;
@@ -52,6 +51,7 @@ public class RecCenterFragment extends Fragment {
         usersFile = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
         usersFileEditor = usersFile.edit();
 
+
         super.onAttach(context);
     }
 
@@ -62,7 +62,7 @@ public class RecCenterFragment extends Fragment {
         binding = FragmentReccenterBinding.inflate(inflater, container, false);
 
         try {
-            InputStream is = getContext().getAssets().open("db/cResDB.txt");
+            InputStream is = getContext().getAssets().open("db/rResDB.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line = reader.readLine();
             while(line != null){
@@ -117,7 +117,7 @@ public class RecCenterFragment extends Fragment {
         for(Map.Entry<String,?> entry : keys.entrySet()){
             String data = entry.getValue().toString();
             String[] dataVals = data.split(",");
-            if (dataVals[3].equals(date)) {
+            if (dataVals[3].equals(date) && dataVals[0].charAt(0) == 'r') {
                 bookings.add(new Booking(dataVals));
             }
         }
@@ -161,27 +161,29 @@ public class RecCenterFragment extends Fragment {
 
             String userId = "" + usersFile.getInt("currentUser", 0);
 
-            if (availSpots == 0) {
-                if (sharedWaitlist.getString(booking.getResId(), "").contains(userId)) {
-                    actionButton.setEnabled(false);
-                    actionButton.setText("Added to the waitlist");
-                }
-                else {
-                    actionButton.setText("Notify Me");
-                    actionButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            actionButton.setText("Added to the waitlist");
-                            actionButton.setEnabled(false);
-                            addToWaitlist(userId, booking);
-                        }
-                    });
-                }
+            if (userInRes(userId, booking)) {
+                System.out.println("enter");
+                actionButton.setEnabled(false);
+                actionButton.setText("Booked!");
             }
             else {
-                if (usersFile.getString(userId, "").contains(booking.getResId())) {
-                    actionButton.setEnabled(false);
-                    actionButton.setText("Booked!");
+                System.out.println("did not enter");
+                if (availSpots == 0) {
+                    if (sharedWaitlist.getString(booking.getResId(), "").contains(userId)) {
+                        actionButton.setEnabled(false);
+                        actionButton.setText("Added to the waitlist");
+                    }
+                    else {
+                        actionButton.setText("Notify Me");
+                        actionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                actionButton.setText("Added to the waitlist");
+                                actionButton.setEnabled(false);
+                                addToWaitlist(userId, booking);
+                            }
+                        });
+                    }
                 }
                 else {
                     actionButton.setText("Book Now");
@@ -190,7 +192,7 @@ public class RecCenterFragment extends Fragment {
                         public void onClick(View view) {
                             actionButton.setEnabled(false);
                             actionButton.setText("Booked!");
-                            availText.setText((availSpots-1) + " spots open");
+                            availText.setText((availSpots - 1) + " spots open");
                             addReservation(userId, booking);
                         }
                     });
@@ -203,6 +205,20 @@ public class RecCenterFragment extends Fragment {
                 layout.addView(actionButton);
             }
         }
+    }
+
+    private boolean userInRes(String userId, Booking booking) {
+        String[] resInfo = sharedBookings.getString(booking.getResId(), "").split(",");
+        if (resInfo.length < 5) {
+            return false;
+        }
+
+        for (int i=0; i<resInfo.length; i++) {
+            System.out.println(resInfo[i]);
+            if (resInfo[i].equals(userId)) return true;
+        }
+
+        return false;
     }
 
     private void addToWaitlist(String userId, Booking booking) {
