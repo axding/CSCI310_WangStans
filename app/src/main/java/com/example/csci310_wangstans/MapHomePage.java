@@ -20,11 +20,6 @@ import com.example.csci310_wangstans.databinding.FragmentMapHomePageBinding;
 
 import java.util.Vector;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MapHomePage#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MapHomePage extends Fragment {
 
     View hsc, lyon, racquetball, uac, village, track;
@@ -43,13 +38,6 @@ public class MapHomePage extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment MapHomePage.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MapHomePage newInstance(String param1, String param2) {
         MapHomePage fragment = new MapHomePage();
         Bundle args = new Bundle();
@@ -62,8 +50,6 @@ public class MapHomePage extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,7 +60,6 @@ public class MapHomePage extends Fragment {
         return binding.getRoot();
 
     }
-
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

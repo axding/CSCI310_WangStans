@@ -61,37 +61,6 @@ public class Reservation {
 
         }
 
-//        this.resEncoding=resEncoding;
-//
-//        String filename=resEncoding.substring(0, 1)+"ResDB.txt";
-//        String resNum=resEncoding.substring(1,2);
-//
-//        try {
-//            InputStream is = context.getAssets().open("db/"+filename);
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-//            String line = reader.readLine();
-//            while(line != null){
-//                System.out.println(line);
-//                String[] resInfo = line.split(",");
-//                if(resInfo[0].equals(resNum)){
-//                    this.startTime=resInfo[1];
-//                    this.endTime=resInfo[2];
-//                    this.date=resInfo[3];
-//                    break;
-//                }
-//                line = reader.readLine();
-//            }
-//
-//            is.close();
-//            reader.close();
-//        }
-//        catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
     }
 
     public String getResEnc() { return resEncoding; }
