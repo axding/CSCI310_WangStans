@@ -83,7 +83,7 @@ public class RegisterFragment extends Fragment {
                 name = editName.getText().toString();
                 email = editEmail.getText().toString();
                 password = editPassword.getText().toString();
-                String value = username + ", " + name + ", " + email + ", " + password;
+                String value = username + "," + name + "," + email + "," + password;
                 int count = sharedPreferences.getInt( "count", 0);
                 String count_string = "" + count;
 
