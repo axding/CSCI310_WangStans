@@ -78,7 +78,7 @@ public class LoginFragment extends Fragment {
                     String key = i + "";
                     String value = sharedPreferences.getString(key,"null");
                     if(value != null) {
-                        String[] userInfo = value.split(", ");
+                        String[] userInfo = value.split(",");
                         if(userInfo.length<4)  break;
                         String uName = userInfo[0];
                         String uPass = userInfo[3];

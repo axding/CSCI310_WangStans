@@ -51,10 +51,6 @@ public class RecCenterFragment extends Fragment {
 
         usersFile = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
         usersFileEditor = usersFile.edit();
-        if (!usersFile.contains("reservations")) {
-            usersFileEditor.putString("reservations", "");
-            usersFileEditor.apply();
-        }
 
         super.onAttach(context);
     }
@@ -163,8 +159,10 @@ public class RecCenterFragment extends Fragment {
             Button actionButton = new Button(getContext());
             actionButton.setLayoutParams(layoutParams);
 
+            String userId = "" + usersFile.getInt("currentUser", 0);
+
             if (availSpots == 0) {
-                if (sharedWaitlist.getString(booking.getResId(), "").contains("0")) {
+                if (sharedWaitlist.getString(booking.getResId(), "").contains(userId)) {
                     actionButton.setEnabled(false);
                     actionButton.setText("Added to the waitlist");
                 }
@@ -175,13 +173,13 @@ public class RecCenterFragment extends Fragment {
                         public void onClick(View view) {
                             actionButton.setText("Added to the waitlist");
                             actionButton.setEnabled(false);
-                            addToWaitlist("0", booking);
+                            addToWaitlist(userId, booking);
                         }
                     });
                 }
             }
             else {
-                if (usersFile.getString("reservations", "").contains(booking.getResId())) {
+                if (usersFile.getString(userId, "").contains(booking.getResId())) {
                     actionButton.setEnabled(false);
                     actionButton.setText("Booked!");
                 }
@@ -193,7 +191,7 @@ public class RecCenterFragment extends Fragment {
                             actionButton.setEnabled(false);
                             actionButton.setText("Booked!");
                             availText.setText((availSpots-1) + " spots open");
-                            addReservation("0", booking);
+                            addReservation(userId, booking);
                         }
                     });
                 }
@@ -223,12 +221,7 @@ public class RecCenterFragment extends Fragment {
         sharedBookingsEditor.putString(booking.getResId(), sharedBookings.getString(booking.getResId(), "") + "," + userId);
         sharedBookingsEditor.apply();
 
-        if (usersFile.getString("reservations", "").equals("")) {
-            usersFileEditor.putString("reservations", booking.getResId());
-        }
-        else {
-            usersFileEditor.putString("reservations", sharedWaitlist.getString("reservations", "") + "," + booking.getResId());
-        }
+        usersFileEditor.putString(userId, usersFile.getString(userId, "") + "," + booking.getResId());
         usersFileEditor.apply();
     }
 
