@@ -1,5 +1,7 @@
 package com.example.csci310_wangstans;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -37,7 +39,9 @@ import com.example.csci310_wangstans.databinding.FragmentReservationBinding;
 // * create an instance of this fragment.
 // */
 
+
 public class ReservationFragment extends Fragment {
+    private SharedPreferences userDB;
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -286,13 +290,13 @@ public class ReservationFragment extends Fragment {
     }
     private void populateRes(){
         int userID=1;
-        String info=findUserInfo(userID);
+        String info=findUserInfo();
 
         //Vector<Booking> userRes = new Vector<>();
         Vector<String> resIDs = new Vector<>();
 
         String[] userInfo = info.split(", ");
-
+        System.out.println(info);
         for(int i=0;i<userInfo.length;i++){
             System.out.println(userInfo[i]);
         }
@@ -429,41 +433,50 @@ public class ReservationFragment extends Fragment {
 
 
 
-    private String findUserInfo(int userID){
+    private String findUserInfo(){
         String results="";
-        try {
-            InputStream is = getContext().getAssets().open("db/user.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String line = reader.readLine();
-            while(line != null){
-                //System.out.println("Next line:"+line);
-                String[] resInfo = line.split(", ");
-//                for(int i=0;i<resInfo.length;i++) {
-//                    System.out.println(resInfo[i]);
+
+
+        userDB = getContext().getSharedPreferences("usersFile", Context.MODE_PRIVATE);
+        int currUserID=userDB.getInt("currentUser", -1);
+        String userString=userDB.getString(currUserID+"","none");
+
+        return userString;
+
+//        try {
+//            InputStream is = getContext().getAssets().open("db/user.txt");
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+//            String line = reader.readLine();
+//            while(line != null){
+//                //System.out.println("Next line:"+line);
+//                String[] resInfo = line.split(", ");
+////                for(int i=0;i<resInfo.length;i++) {
+////                    System.out.println(resInfo[i]);
+////                }
+//                //System.out.println();
+//                if(resInfo[0].equals((userID+""))){
+//                    //found the user
+//                    //System.out.println("user found!");
+//                    results=line;
+//                    return results;
 //                }
-                //System.out.println();
-                if(resInfo[0].equals((userID+""))){
-                    //found the user
-                    //System.out.println("user found!");
-                    results=line;
-                    return results;
-                }
-                line = reader.readLine();
+//                line = reader.readLine();
+//
+//            }
+//
+//
+//            is.close();
+//            reader.close();
+//        }
+//        catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return "noUser";
 
-            }
-
-
-            is.close();
-            reader.close();
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "noUser";
     }
 
 }
