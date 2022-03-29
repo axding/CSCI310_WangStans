@@ -61,28 +61,28 @@ public class RRecCenterFragment extends Fragment {
 
         binding = FragmentReccenterBinding.inflate(inflater, container, false);
 
-        try {
-            InputStream is = getContext().getAssets().open("db/rResDB.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String line = reader.readLine();
-            while(line != null){
-                String[] resInfo = line.split(",");
-                String key = resInfo[0];
-                String value = String.join(",",resInfo);
-                sharedBookingsEditor.putString(key, value);
-                sharedBookingsEditor.apply();
-                line = reader.readLine();
-            }
-
-            is.close();
-            reader.close();
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            InputStream is = getContext().getAssets().open("db/rResDB.txt");
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+//            String line = reader.readLine();
+//            while(line != null){
+//                String[] resInfo = line.split(",");
+//                String key = resInfo[0];
+//                String value = String.join(",",resInfo);
+//                sharedBookingsEditor.putString(key, value);
+//                sharedBookingsEditor.apply();
+//                line = reader.readLine();
+//            }
+//
+//            is.close();
+//            reader.close();
+//        }
+//        catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         return binding.getRoot();
     }
