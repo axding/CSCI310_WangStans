@@ -29,11 +29,13 @@
                 android:id="@+id/upcomingReservations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="Upcoming Reservations"
                 android:textColor="#000"
-                android:textSize="15dp"
+                android:textSize="10dp"
                 android:textStyle="bold"
-                android:layout_margin="10dp"/>
+                android:drawableRight="@drawable/arrow"
+                android:drawablePadding="5dp"/>
         </LinearLayout>
 
     </ScrollView>
