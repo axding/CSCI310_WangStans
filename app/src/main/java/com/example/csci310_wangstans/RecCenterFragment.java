@@ -45,7 +45,6 @@ public class RecCenterFragment extends Fragment {
     public void onAttach(Context context) {
         sharedBookings = context.getSharedPreferences("sharedBooking", Context.MODE_PRIVATE);
         sharedBookingsEditor = sharedBookings.edit();
-        sharedBookingsEditor.putString("c4", "c4,2000,2050,3-30-2022");
 
         sharedWaitlist = context.getSharedPreferences("sharedWaitlist", Context.MODE_PRIVATE);
         sharedWaitlistEditor = sharedWaitlist.edit();
