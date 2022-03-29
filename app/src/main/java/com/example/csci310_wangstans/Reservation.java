@@ -1,6 +1,7 @@
 package com.example.csci310_wangstans;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,37 +21,76 @@ public class Reservation {
     private String endTime;
     private String date;
     //1,2100,2150,3282022
+    private String recLoc;
+    private SharedPreferences bookings;
+
     public Reservation(String resEncoding, Context context) {
+
         this.resEncoding=resEncoding;
+        this.recLoc=resEncoding.substring(0,1);
+        this.bookings=context.getSharedPreferences("sharedBooking", Context.MODE_PRIVATE);
+        String resString=bookings.getString(resEncoding, "no res");
 
-        String filename=resEncoding.substring(0, 1)+"ResDB.txt";
-        String resNum=resEncoding.substring(1,2);
+        String resArr[]=resString.split(",");
+        System.out.println("resfound");
+       // this.date=resArr[3];
+        this.date=resArr[3];
+        this.startTime=resArr[1];
+        this.endTime=resArr[2];
+        if(recLoc.equals("c")){
+            recLoc="Cromwell Track";
+        }
+        else if(recLoc.equals("l")){
+            recLoc="Lyon Center";
 
-        try {
-            InputStream is = context.getAssets().open("db/"+filename);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String line = reader.readLine();
-            while(line != null){
-                System.out.println(line);
-                String[] resInfo = line.split(",");
-                if(resInfo[0].equals(resNum)){
-                    this.startTime=resInfo[1];
-                    this.endTime=resInfo[2];
-                    this.date=resInfo[3];
-                    break;
-                }
-                line = reader.readLine();
-            }
+        }
+        else if(recLoc.equals("u")){
+            recLoc="Swimming Pool";
 
-            is.close();
-            reader.close();
         }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
+        else if(recLoc.equals("r")){
+            recLoc="Raqueetball Courts";
+
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        else if(recLoc.equals("v")){
+            recLoc="Village Gym";
+
         }
+        else if(recLoc.equals("h")){
+            recLoc="HSC Gym";
+
+        }
+
+//        this.resEncoding=resEncoding;
+//
+//        String filename=resEncoding.substring(0, 1)+"ResDB.txt";
+//        String resNum=resEncoding.substring(1,2);
+//
+//        try {
+//            InputStream is = context.getAssets().open("db/"+filename);
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+//            String line = reader.readLine();
+//            while(line != null){
+//                System.out.println(line);
+//                String[] resInfo = line.split(",");
+//                if(resInfo[0].equals(resNum)){
+//                    this.startTime=resInfo[1];
+//                    this.endTime=resInfo[2];
+//                    this.date=resInfo[3];
+//                    break;
+//                }
+//                line = reader.readLine();
+//            }
+//
+//            is.close();
+//            reader.close();
+//        }
+//        catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -66,6 +106,9 @@ public class Reservation {
 
     public String getDate() {
         return date;
+    }
+    public String getLoc() {
+        return recLoc;
     }
 
     public void printReservation(){
