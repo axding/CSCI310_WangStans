@@ -8,7 +8,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 /**
@@ -73,7 +72,7 @@ public class MapHomePage extends Fragment {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MapHomePage.this)
-                        .navigate(R.id.action_MapHomePage_to_BookingFragment);
+                        .navigate(R.id.action_MapHomePage_to_HRecCenterFragment);
             }
         });
 
@@ -81,7 +80,7 @@ public class MapHomePage extends Fragment {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MapHomePage.this)
-                        .navigate(R.id.action_MapHomePage_to_BookingFragment);
+                        .navigate(R.id.action_MapHomePage_to_URecCenterFragment);
             }
         });
 
@@ -89,7 +88,7 @@ public class MapHomePage extends Fragment {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MapHomePage.this)
-                        .navigate(R.id.action_MapHomePage_to_BookingFragment);
+                        .navigate(R.id.action_MapHomePage_to_CRecCenterFragment);
             }
         });
 
@@ -97,7 +96,7 @@ public class MapHomePage extends Fragment {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MapHomePage.this)
-                        .navigate(R.id.action_MapHomePage_to_BookingFragment);
+                        .navigate(R.id.action_MapHomePage_to_VRecCenterFragment);
             }
         });
 
@@ -105,7 +104,7 @@ public class MapHomePage extends Fragment {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MapHomePage.this)
-                        .navigate(R.id.action_MapHomePage_to_BookingFragment);
+                        .navigate(R.id.action_MapHomePage_to_LRecCenterFragment);
             }
         });
 
@@ -113,7 +112,7 @@ public class MapHomePage extends Fragment {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MapHomePage.this)
-                        .navigate(R.id.action_MapHomePage_to_BookingFragment);
+                        .navigate(R.id.action_MapHomePage_to_RRecCenterFragment);
             }
         });
 

@@ -17,7 +17,7 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_BookingFragment"
-            app:destination="@id/bookingFragment" />
+            app:destination="@id/cRecCenterFragment" />
 
         <action
             android:id="@+id/action_FirstFragment_to_LoginFragment"
@@ -34,9 +34,34 @@
             app:destination="@id/FirstFragment" />
     </fragment>
     <fragment
-        android:id="@+id/bookingFragment"
-        android:name="com.example.csci310_wangstans.RecCenterFragment"
-        android:label="fragment_booking"
+        android:id="@+id/cRecCenterFragment"
+        android:name="com.example.csci310_wangstans.CRecCenterFragment"
+        android:label="Cromwell Track Bookings"
+        tools:layout="@layout/fragment_reccenter" />
+    <fragment
+        android:id="@+id/vRecCenterFragment"
+        android:name="com.example.csci310_wangstans.VRecCenterFragment"
+        android:label="Village Fitness Center Bookings"
+        tools:layout="@layout/fragment_reccenter" />
+    <fragment
+        android:id="@+id/lRecCenterFragment"
+        android:name="com.example.csci310_wangstans.LRecCenterFragment"
+        android:label="Lyon Center Bookings"
+        tools:layout="@layout/fragment_reccenter" />
+    <fragment
+        android:id="@+id/uRecCenterFragment"
+        android:name="com.example.csci310_wangstans.URecCenterFragment"
+        android:label="UAC Swim Bookings"
+        tools:layout="@layout/fragment_reccenter" />
+    <fragment
+        android:id="@+id/hRecCenterFragment"
+        android:name="com.example.csci310_wangstans.HRecCenterFragment"
+        android:label="HSC Fitness Center Bookings"
+        tools:layout="@layout/fragment_reccenter" />
+    <fragment
+        android:id="@+id/rRecCenterFragment"
+        android:name="com.example.csci310_wangstans.RRecCenterFragment"
+        android:label="Raquetball Court Bookings"
         tools:layout="@layout/fragment_reccenter" />
     <fragment
         android:id="@+id/loginFragment"
@@ -56,11 +81,27 @@
         android:label="fragment_map_home_page"
         tools:layout="@layout/fragment_map_home_page">
         <action
-            android:id="@+id/action_MapHomePage_to_BookingFragment"
-            app:destination="@id/bookingFragment" />
+            android:id="@+id/action_MapHomePage_to_CRecCenterFragment"
+            app:destination="@id/cRecCenterFragment" />
+        <action
+            android:id="@+id/action_MapHomePage_to_VRecCenterFragment"
+            app:destination="@id/vRecCenterFragment" />
+        <action
+            android:id="@+id/action_MapHomePage_to_LRecCenterFragment"
+            app:destination="@id/lRecCenterFragment" />
+        <action
+            android:id="@+id/action_MapHomePage_to_URecCenterFragment"
+            app:destination="@id/uRecCenterFragment" />
+        <action
+            android:id="@+id/action_MapHomePage_to_HRecCenterFragment"
+            app:destination="@id/hRecCenterFragment" />
+        <action
+            android:id="@+id/action_MapHomePage_to_RRecCenterFragment"
+            app:destination="@id/rRecCenterFragment" />
         <action
             android:id="@+id/action_MapHomePage_to_ReservationFragment"
             app:destination="@id/reservationFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
