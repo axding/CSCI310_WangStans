@@ -31,10 +31,15 @@ public class RecCenterFragment extends Fragment {
 
     private FragmentReccenterBinding binding;
     private Vector<Booking> bookings;
+
     private SharedPreferences sharedBookings;
     private SharedPreferences.Editor sharedBookingsEditor;
+
     private SharedPreferences sharedWaitlist;
     private SharedPreferences.Editor sharedWaitlistEditor;
+
+//    private SharedPreferences usersFile;
+//    private SharedPreferences.Editor usersFileEditor;
 
     @Override
     public void onAttach(Context context) {
@@ -42,6 +47,10 @@ public class RecCenterFragment extends Fragment {
         sharedBookingsEditor = sharedBookings.edit();
 
         sharedWaitlist = context.getSharedPreferences("sharedWaitlist", Context.MODE_PRIVATE);
+        sharedWaitlistEditor = sharedWaitlist.edit();
+
+//        usersFile = context.getSharedPreferences("userFile", Context.MODE_PRIVATE);
+//        usersFileEditor = usersFile.edit();
 
         super.onAttach(context);
     }
@@ -107,9 +116,7 @@ public class RecCenterFragment extends Fragment {
 
         for(Map.Entry<String,?> entry : keys.entrySet()){
             String data = entry.getValue().toString();
-            System.out.println(data);
             String[] dataVals = data.split(",");
-            System.out.println(date);
             if (dataVals[3].equals(date)) {
                 bookings.add(new Booking(dataVals));
             }
@@ -183,11 +190,17 @@ public class RecCenterFragment extends Fragment {
 
     private void addToWaitlist(String userId, Booking booking) {
         String resId = booking.getResId();
-        sharedWaitlistEditor.putString(resId, sharedBookings.getString(resId, "") + userId);
+        if (sharedWaitlist.contains(resId)) {
+            sharedWaitlistEditor.putString(resId, sharedWaitlist.getString(resId, "") + "," + userId);
+        }
+        else {
+            sharedWaitlistEditor.putString(resId, userId);
+        }
+        sharedWaitlistEditor.apply();
         booking.addToWaitlist(userId);
     }
 
-//    private void addReservation(String userId, Booking booking) {
+//    private void addReservation(Booking booking) {
 //        String resId = booking.getResId();
 //        sharedWaitlistEditor.putString(resId, sharedBookings.getString(resId, "") + userId);
 //        booking.addToWaitlist(userId);
