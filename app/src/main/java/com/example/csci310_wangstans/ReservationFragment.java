@@ -42,6 +42,8 @@ import com.example.csci310_wangstans.databinding.FragmentReservationBinding;
 
 public class ReservationFragment extends Fragment {
     private SharedPreferences userDB;
+    private SharedPreferences waitDB;
+    SharedPreferences.Editor editor;
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,6 +84,7 @@ public class ReservationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         populateRes();
+
 //        if (getArguments() != null) {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
@@ -99,7 +102,7 @@ public class ReservationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        System.out.println("asdf");
         Calendar today = Calendar.getInstance();
 
 
@@ -195,8 +198,49 @@ public class ReservationFragment extends Fragment {
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    cancelButton.setEnabled(false);
                     cancelButton.setText("Reservation Cancelled.");
                     System.out.println(res.getResEnc());
+
+                    String cancelEnc=res.getResEnc();
+
+                    //get user string
+                    int currUser=userDB.getInt("currentUser", -1);
+                    String userString=userDB.getString(currUser+"", "none");
+
+                    userString+=", c2, c3";
+                    //remove the enc
+                    String newString="";
+                    String userArr[]=userString.split(",");
+                    for(int i=0;i<userArr.length;i++){
+                        if(userArr[i].equals(cancelEnc)){
+                           continue;
+                        }
+                        else{
+                            newString+=userArr[i]+", ";
+                        }
+                    }
+                    newString=newString.substring(0,newString.length()-2);
+                    System.out.println(newString);
+                    //push back into pref
+                    editor = userDB.edit();
+                    editor.putString(currUser+"", newString);
+                    editor.apply();
+
+
+                    //get waitlistpref
+                    waitDB=getContext().getSharedPreferences("sharedWaitlist",Context.MODE_PRIVATE);
+                    String waitUsers=waitDB.getString(cancelEnc, "nowait");
+
+                    //notify users if any
+                    if(waitUsers.equals("nowait")){
+                        System.out.println("No users on waitlist!");
+                    }
+                    else{
+                        System.out.println("Notifying"+waitUsers);
+
+                        //lets notify users
+                    }
                 }
             });
 
@@ -295,7 +339,7 @@ public class ReservationFragment extends Fragment {
         //Vector<Booking> userRes = new Vector<>();
         Vector<String> resIDs = new Vector<>();
 
-        String[] userInfo = info.split(", ");
+        String[] userInfo = info.split(",");
         System.out.println(info);
         for(int i=0;i<userInfo.length;i++){
             System.out.println(userInfo[i]);
@@ -303,10 +347,11 @@ public class ReservationFragment extends Fragment {
 
         if(userInfo.length==4){
             System.out.println("No reservations!");
-            return;
+            //return;
         }
 
         System.out.println("We have something");
+
         for(int i=0;i<userInfo.length;i++){
             if(i<=3){
                 continue;
@@ -315,6 +360,9 @@ public class ReservationFragment extends Fragment {
                 resIDs.add(userInfo[i]);
             }
         }
+        resIDs.add("c2");
+        resIDs.add("c3");
+
         System.out.println("Here are the reservation id's");
         for(int i=0;i<resIDs.size();i++){
             System.out.println(resIDs.get(i));
@@ -323,10 +371,12 @@ public class ReservationFragment extends Fragment {
         String test="c0";
 
         System.out.println("Making reservations");
+
         for(int i=0;i<resIDs.size();i++){
             allUserRes.add(new Reservation(resIDs.get(i), getContext()));
             allUserRes.get(i).printReservation();
         }
+
 
         //get current time
         Calendar today = Calendar.getInstance();
@@ -440,7 +490,7 @@ public class ReservationFragment extends Fragment {
         userDB = getContext().getSharedPreferences("usersFile", Context.MODE_PRIVATE);
         int currUserID=userDB.getInt("currentUser", -1);
         String userString=userDB.getString(currUserID+"","none");
-
+        System.out.println("user info here: "+userString);
         return userString;
 
 //        try {
