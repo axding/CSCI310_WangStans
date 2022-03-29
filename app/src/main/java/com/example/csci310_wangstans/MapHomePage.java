@@ -771,7 +771,7 @@ public class MapHomePage extends Fragment {
             TextView noResText = new TextView(getContext());
             noResText.setLayoutParams((layoutParams));
             noResText.setGravity(Gravity.CENTER);
-            noResText.setText("No upcoming reservations. Try scheduling one.");
+            noResText.setText("No upcoming reservations.\nTry scheduling one.");
             layout.addView(noResText);
             return;
         }
