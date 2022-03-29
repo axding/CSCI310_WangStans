@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -64,11 +65,19 @@ public class MapHomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_map_home_page, container, false);
+        //View view = inflater.inflate(R.layout.fragment_map_home_page, container, false);
         binding = FragmentMapHomePageBinding.inflate(inflater, container, false);
 
-        reservations = (LinearLayout) view.findViewById(R.id.reservations);
+        return binding.getRoot();
+
+    }
+
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         loadQuickView();
+
+        reservations = binding.reservations;
         reservations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,12 +86,12 @@ public class MapHomePage extends Fragment {
             }
         });
 
-        hsc = view.findViewById(R.id.hsc);
-        uac = view.findViewById(R.id.uac);
-        track = view.findViewById(R.id.track);
-        village = view.findViewById(R.id.village);
-        lyon = view.findViewById(R.id.lyon);
-        racquetball = view.findViewById(R.id.racquetball);
+        hsc = binding.hsc;
+        uac = binding.uac;
+        track = binding.track;
+        village = binding.village;
+        lyon = binding.lyon;
+        racquetball = binding.racquetball;
 
         hsc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,16 +140,13 @@ public class MapHomePage extends Fragment {
                         .navigate(R.id.action_MapHomePage_to_RRecCenterFragment);
             }
         });
-
-        //return binding.getRoot();
-        return view;
-
     }
 
-    private void loadQuickView() {
+        private void loadQuickView() {
         //load info
+        allUserRes.clear();
+        comingRes.clear();
         getUpcomingEvents();
-
         loadWindow();
     }
 
