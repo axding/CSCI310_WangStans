@@ -42,6 +42,7 @@ import com.example.csci310_wangstans.databinding.FragmentReservationBinding;
 
 public class ReservationFragment extends Fragment {
     private SharedPreferences userDB;
+    private SharedPreferences waitDB;
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -223,8 +224,17 @@ public class ReservationFragment extends Fragment {
                     //push back into pref
 
                     //get waitlistpref
+                    waitDB=getContext().getSharedPreferences("sharedWaitlist",Context.MODE_PRIVATE);
+                    String waitUsers=waitDB.getString(cancelEnc, "nowait");
 
                     //notify users if any
+                    if(waitUsers.equals("nowait")){
+                        System.out.println("No users on waitlist!");
+                    }
+                    else{
+
+                        //lets notify users
+                    }
                 }
             });
 
