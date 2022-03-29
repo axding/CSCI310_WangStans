@@ -190,7 +190,7 @@ public class MapHomePage extends Fragment {
             TextView buffer = new TextView(getContext());
             buffer.setLayoutParams(layoutParams);
             buffer.setGravity(Gravity.CENTER);
-            buffer.setText("-------------------------------");
+            buffer.setText("-----------------------------------------");
 
             if (layout != null) {
                 layout.addView(loc);
