@@ -451,11 +451,11 @@ public class ReservationFragment extends Fragment {
             int currM= time.getMinute();
             int resH = Integer.parseInt(reservation.getStartTime().substring(0,2));
             int resM = Integer.parseInt(reservation.getStartTime().substring(3,5));
-            if(currH<resH){
+            if(currH>resH){
                 return true;
             }
             else if(currH==resH){
-                if(currM<resM){
+                if(currM>resM){
                     return true;
                 }
                 else{
