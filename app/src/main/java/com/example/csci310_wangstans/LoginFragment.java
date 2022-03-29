@@ -72,17 +72,27 @@ public class LoginFragment extends Fragment {
                 username = editUserName.getText().toString();
                 password = editPassword.getText().toString();
 
-                //make count to iterate through multiple users
-                String uName, uPass;
-                uName = sharedPreferences.getString( "username", null);
-                uPass = sharedPreferences.getString( "password", null);
+                int count = sharedPreferences.getInt("count", 0);
 
-                if(username.equals(uName) && password.equals(uPass)) {
-                    Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
-                    NavHostFragment.findNavController(LoginFragment.this)
-                            .navigate(R.id.action_LoginFragment_to_MapHomePage);
-                } else {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                for(int i = 0; i < count; i ++) {
+                    String key = i + "";
+                    String value = sharedPreferences.getString(key,"null");
+                    if(value != null) {
+                        String[] userInfo = value.split(", ");
+                        if(userInfo.length<4)  break;
+                        String uName = userInfo[0];
+                        String uPass = userInfo[3];
+                        if(username.equals(uName) && password.equals(uPass)) {
+                            editor.putInt("currentUser", i);
+                            editor.apply();
+                            Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
+                            NavHostFragment.findNavController(LoginFragment.this)
+                                    .navigate(R.id.action_LoginFragment_to_MapHomePage);
+                        } else {
+                            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
                 }
             }
         });

@@ -83,11 +83,12 @@ public class RegisterFragment extends Fragment {
                 name = editName.getText().toString();
                 email = editEmail.getText().toString();
                 password = editPassword.getText().toString();
+                String value = username + ", " + name + ", " + email + ", " + password;
+                int count = sharedPreferences.getInt( "count", 0);
+                String count_string = "" + count;
 
-                editor.putString("username", username);
-                editor.putString("name", name);
-                editor.putString("password", password);
-                editor.putString("email", email);
+                editor.putString(count_string, value);
+                editor.putInt("count", count+1);
                 editor.apply();
                 Toast.makeText(getContext(), "Registered", Toast.LENGTH_SHORT).show();
 
