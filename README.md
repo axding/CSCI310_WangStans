@@ -13,3 +13,8 @@ To run the app,
 5. In the map home page, click the arrow on the gray reservation window to see your reservations.
 * You can click the "Upcoming Reservations" button to see upcoming reservations.
 * You can click the "Past Reservation" button to see past reservations.
+* You can cancel current reservation with a button. 
+6. Changes should propagate.
+
+For most updated changes please pull.
+https://github.com/axding/CSCI310_WangStans
