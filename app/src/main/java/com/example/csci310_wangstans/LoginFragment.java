@@ -36,7 +36,17 @@ public class LoginFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         sharedPreferences = context.getSharedPreferences( "usersFile", Context.MODE_PRIVATE);
+
         editor = sharedPreferences.edit();
+        editor.putString("-1", "student,student,student,student");
+        editor.apply();
+//        waitManager = getContext().getSharedPreferences( "waitManager", Context.MODE_PRIVATE);
+//        waitEditor = waitManager.edit();
+//
+//        for(int i=0;i<waitingUsers.length;i++){
+//            waitEditor.putString(waitingUsers[i]+"", "true");
+//        }
+//        waitEditor.apply();
         super.onAttach(context);
     }
 
@@ -63,7 +73,7 @@ public class LoginFragment extends Fragment {
 
                 int count = sharedPreferences.getInt("count", 0);
 
-                for(int i = 0; i < count; i ++) {
+                for(int i = -1; i < count; i ++) {
                     String key = i + "";
                     String value = sharedPreferences.getString(key,"null");
                     if(value != null) {
