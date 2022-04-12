@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.csci310_wangstans.databinding.FragmentMapHomePageBinding;
 
@@ -38,6 +39,8 @@ public class MapHomePage extends Fragment {
     private SharedPreferences.Editor sharedBookingsEditor;
 
     private SharedPreferences userDB;
+    private SharedPreferences waitManager;
+    private SharedPreferences.Editor waitEditor;
 
     public MapHomePage() {
         // Required empty public constructor
@@ -77,6 +80,7 @@ public class MapHomePage extends Fragment {
         else{
             System.out.println("already made");
         }
+        checkNotif();
         loadQuickView();
 
         reservations = binding.reservations;
@@ -143,6 +147,25 @@ public class MapHomePage extends Fragment {
             }
         });
     }
+
+    private void checkNotif() {
+        userDB=getContext().getSharedPreferences("usersFile",Context.MODE_PRIVATE);
+        String currUser=userDB.getInt("currentUser", -1)+"";
+
+        waitManager = getContext().getSharedPreferences( "waitManager", Context.MODE_PRIVATE);
+        if(waitManager.getString(currUser, "none").equals("true")){
+            System.out.println("notify user "+currUser);
+            Toast.makeText(getActivity().getApplicationContext(), "A session you were on the waitlist for has opened!", Toast.LENGTH_LONG).show();
+            waitManager.edit().remove(currUser);
+            waitManager.edit().apply();
+
+
+
+        }
+
+
+    }
+
     private void populateRes(){
         System.out.println("Starting..");
         sharedBookingsEditor.putString("c0", "c0,1900,1950,3-29-2022");
