@@ -831,59 +831,60 @@ public class MapHomePage extends Fragment {
     }
 
     private boolean isUpcoming(Reservation res) {
-
-        LocalDate date = LocalDate.now();
-
-        int currYr = date.getYear();
-        int currMonth = date.getMonthValue();
-        int currDay = date.getDayOfMonth();
-
-        String resDate = res.getDate();
-
-        String dateHold[] = resDate.split("-");
-
-        int resYr = Integer.parseInt(dateHold[2]);
-        int resMonth = Integer.parseInt(dateHold[0]);
-        int resDay = Integer.parseInt(dateHold[1]);
-        SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-        Date resD = new Date();
-        Date currD = new Date();
-
-        try {
-            resD = sdformat.parse(resYr + "-" + resMonth + "-" + resDay);
-            currD = sdformat.parse(currYr + "-" + currMonth + "-" + currDay);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (resD.compareTo(currD) > 0) {
-            System.out.println("res occurs after curr");
-            return false;
-        } else if (resD.compareTo(currD) < 0) {
-            System.out.println("res occurs before curr");
-            return true;
-        } else if (resD.compareTo(currD) == 0) {
-
-            System.out.println("Both dates are equal");
-            LocalTime time = LocalTime.now();
-
-            int currH = time.getHour();
-            int currM = time.getMinute();
-            int resH = Integer.parseInt(res.getStartTime().substring(0, 2));
-            int resM = Integer.parseInt(res.getStartTime().substring(3, 5));
-            if (currH > resH) {
-                return true;
-            } else if (currH == resH) {
-                if (currM > resM) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-        return false;
+//
+//        LocalDate date = LocalDate.now();
+//
+//        int currYr = date.getYear();
+//        int currMonth = date.getMonthValue();
+//        int currDay = date.getDayOfMonth();
+//
+//        String resDate = res.getDate();
+//
+//        String dateHold[] = resDate.split("-");
+//
+//        int resYr = Integer.parseInt(dateHold[2]);
+//        int resMonth = Integer.parseInt(dateHold[0]);
+//        int resDay = Integer.parseInt(dateHold[1]);
+//        SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date resD = new Date();
+//        Date currD = new Date();
+//
+//        try {
+//            resD = sdformat.parse(resYr + "-" + resMonth + "-" + resDay);
+//            currD = sdformat.parse(currYr + "-" + currMonth + "-" + currDay);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        if (resD.compareTo(currD) > 0) {
+//            System.out.println("res occurs after curr");
+//            return false;
+//        } else if (resD.compareTo(currD) < 0) {
+//            System.out.println("res occurs before curr");
+//            return true;
+//        } else if (resD.compareTo(currD) == 0) {
+//
+//            System.out.println("Both dates are equal");
+//            LocalTime time = LocalTime.now();
+//
+//            int currH = time.getHour();
+//            int currM = time.getMinute();
+//            int resH = Integer.parseInt(res.getStartTime().substring(0, 2));
+//            int resM = Integer.parseInt(res.getStartTime().substring(3, 5));
+//            if (currH > resH) {
+//                return true;
+//            } else if (currH == resH) {
+//                if (currM > resM) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            } else {
+//                return false;
+//            }
+//        }
+//        return true;
+        return true;
     }
 
 }
