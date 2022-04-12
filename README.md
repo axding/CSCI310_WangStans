@@ -18,3 +18,4 @@ To run the app,
 
 For most updated changes please pull.
 https://github.com/axding/CSCI310_WangStans
+* You cwan click the "Past Reservation" button to see past reservations.
