@@ -7,6 +7,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 import android.view.View;
@@ -27,43 +28,62 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class VillageViewTest {
+public class RecRegisterTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void villageViewTest() {
+    public void registerTest() {
+        ViewInteraction materialButton = onView(
+                allOf(withId(R.id.buttonRegister), withText("Register"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.fragment_login),
+                                        0),
+                                5),
+                        isDisplayed()));
+        materialButton.perform(click());
+
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.editUserName),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.fragment_login),
+                                        withId(R.id.fragment_register),
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("student"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("mcho"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.editPassword),
+                allOf(withId(R.id.editName),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.fragment_login),
+                                        withId(R.id.fragment_register),
                                         0),
                                 3),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("student"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("mcho"), closeSoftKeyboard());
 
-        ViewInteraction view = onView(
-                allOf(withId(R.id.village),
+        ViewInteraction appCompatEditText3 = onView(
+                allOf(withId(R.id.editEmail),
                         childAtPosition(
-                                allOf(withId(R.id.map_home_page),
-                                        childAtPosition(
-                                                withId(R.id.nav_host_fragment_content_main),
-                                                0)),
-                                3),
+                                childAtPosition(
+                                        withId(R.id.fragment_register),
+                                        0),
+                                4),
                         isDisplayed()));
-        view.perform(click());
+        appCompatEditText3.perform(replaceText("mcho"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText4 = onView(
+                allOf(withId(R.id.editPassword),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.fragment_register),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatEditText4.perform(replaceText("mcho"), closeSoftKeyboard());
     }
 
     private static Matcher<View> childAtPosition(
