@@ -1,25 +1,8 @@
 package com.example.csci310_wangstans;
 
-import static org.mockito.Mockito.when;
-
-import android.os.Bundle;
-import android.view.View;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 
-import java.util.List;
 import java.util.Vector;
 
 /**
