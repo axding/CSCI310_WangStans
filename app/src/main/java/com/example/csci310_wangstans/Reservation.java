@@ -49,7 +49,7 @@ public class Reservation {
 
         }
         else if(recLoc.equals("r")){
-            recLoc="Raqueetball Courts";
+            recLoc="Racquetball Courts";
 
         }
         else if(recLoc.equals("v")){
