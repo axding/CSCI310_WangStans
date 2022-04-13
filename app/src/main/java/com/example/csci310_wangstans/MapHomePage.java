@@ -143,6 +143,7 @@ public class MapHomePage extends Fragment {
             }
         });
     }
+
     private void populateRes(){
         System.out.println("Starting..");
         sharedBookingsEditor.putString("c0", "c0,1900,1950,3-29-2022");
@@ -743,8 +744,11 @@ public class MapHomePage extends Fragment {
         System.out.println("Complete!");
     }
 
+    public String getBooking(String id) {
+        return sharedBookings.getString(id, "none");
+    }
 
-    private boolean isPopulated() {
+    public boolean isPopulated() {
 
         if(sharedBookings.getString("c0", "none").equals("none")){
             return false;

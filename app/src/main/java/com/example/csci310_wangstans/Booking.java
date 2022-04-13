@@ -16,22 +16,24 @@ public class Booking {
         this.resId = resInfo[0];
         this.startTime = parseTime(resInfo[1]);
         this.endTime = parseTime(resInfo[2]);
-        this.numUsers = resInfo.length - 4;
+        this.numUsers = resInfo.length - 3;
         this.users = new Vector<>();
-        if (numUsers > 0) {
-            Collections.addAll(this.users, Arrays.copyOfRange(resInfo, 4, resInfo.length));
-        }
+        if (numUsers > 0) { parseUsers(resInfo); }
         this.waitlist = new Vector<>();
     }
 
     private String parseTime(String time) {
         int hour = Integer.parseInt(time.substring(0,2));
-        int convertedHour = ((hour % 12) != 0) ? hour % 12 : 0;
+        int convertedHour = ((hour % 12) != 0) ? hour % 12 : 12;
         String period = "AM";
         if (hour > 11) {
             period = "PM";
         }
         return convertedHour + ":" + time.substring(2) + " " + period;
+    }
+
+    private void parseUsers(String[] resInfo) {
+        Collections.addAll(this.users, Arrays.copyOfRange(resInfo, 3, resInfo.length));
     }
 
     public String getResId() {
