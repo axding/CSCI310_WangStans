@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.csci310_wangstans.databinding.FragmentMapHomePageBinding;
 
@@ -38,6 +39,8 @@ public class MapHomePage extends Fragment {
     private SharedPreferences.Editor sharedBookingsEditor;
 
     private SharedPreferences userDB;
+    private SharedPreferences waitManager;
+    private SharedPreferences.Editor waitEditor;
 
     public MapHomePage() {
         // Required empty public constructor
@@ -77,6 +80,7 @@ public class MapHomePage extends Fragment {
         else{
             System.out.println("already made");
         }
+        checkNotif();
         loadQuickView();
 
         reservations = binding.reservations;
@@ -142,6 +146,24 @@ public class MapHomePage extends Fragment {
                         .navigate(R.id.action_MapHomePage_to_RRecCenterFragment);
             }
         });
+    }
+
+    private void checkNotif() {
+        userDB=getContext().getSharedPreferences("usersFile",Context.MODE_PRIVATE);
+        String currUser=userDB.getInt("currentUser", -1)+"";
+
+        waitManager = getContext().getSharedPreferences( "waitManager", Context.MODE_PRIVATE);
+        if(waitManager.getString(currUser, "none").equals("true")){
+            System.out.println("notify user "+currUser);
+            Toast.makeText(getActivity().getApplicationContext(), "A session you were on the waitlist for has opened!", Toast.LENGTH_LONG).show();
+            waitManager.edit().remove(currUser);
+            waitManager.edit().apply();
+
+
+
+        }
+
+
     }
 
     private void populateRes(){
@@ -440,12 +462,12 @@ public class MapHomePage extends Fragment {
         sharedBookingsEditor.putString("v48", "v48,1900,1950,4-14-2022");
         sharedBookingsEditor.putString("h48", "h48,1900,1950,4-14-2022");
         sharedBookingsEditor.putString("r48", "r48,1900,1950,4-14-2022");
-        sharedBookingsEditor.putString("c49", "c49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("u49", "u49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("l49", "l49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("v49", "v49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("h49", "h49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("r49", "r49,2000,2050,4-14-2022");
+        sharedBookingsEditor.putString("c49", "c49,2000,2050,4-14-2022, 100");
+        sharedBookingsEditor.putString("u49", "u49,2000,2050,4-14-2022, 100");
+        sharedBookingsEditor.putString("l49", "l49,2000,2050,4-14-2022, 100");
+        sharedBookingsEditor.putString("v49", "v49,2000,2050,4-14-2022, 100");
+        sharedBookingsEditor.putString("h49", "h49,2000,2050,4-14-2022, 100");
+        sharedBookingsEditor.putString("r49", "r49,2000,2050,4-14-2022, 100");
         sharedBookingsEditor.putString("c50", "c50,2100,2150,4-14-2022");
         sharedBookingsEditor.putString("u50", "u50,2100,2150,4-14-2022");
         sharedBookingsEditor.putString("l50", "l50,2100,2150,4-14-2022");
