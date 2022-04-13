@@ -28,7 +28,7 @@ public class RegisterFragment extends Fragment {
     String username, name, email, password;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-
+    int confirmReg=0;
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -78,10 +78,14 @@ public class RegisterFragment extends Fragment {
                 editor.putString(count_string, value);
                 editor.putInt("count", count+1);
                 editor.apply();
-                Toast.makeText(getContext(), "Registered", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getContext(), "Registered", Toast.LENGTH_LONG).show();
 
                 NavHostFragment.findNavController(RegisterFragment.this)
-                        .navigate(R.id.action_RegisterFragment_to_LoginFragment);
+                            .navigate(R.id.action_RegisterFragment_to_LoginFragment);
+
+
+
             }
         });
 
