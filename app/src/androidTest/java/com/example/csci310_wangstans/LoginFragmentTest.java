@@ -1,5 +1,6 @@
 package com.example.csci310_wangstans;
 
+import androidx.fragment.app.testing.FragmentScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.runner.RunWith;
 import org.junit.Rule;
@@ -18,6 +19,8 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 @RunWith(AndroidJUnit4.class)
 public class LoginFragmentTest {
 
+//    @Rule
+//    public ActivityScenarioRule<MainActivity> mActivityRule = new ActivityScenarioRule<>(MainActivity.class);
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityRule = new ActivityScenarioRule<>(MainActivity.class);
 
