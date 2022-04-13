@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapHomePage">
+    tools:context=".MapHomePage"
+    android:id="@+id/map_home_page"
+    >
 
     <ImageView
         android:id="@+id/background"
