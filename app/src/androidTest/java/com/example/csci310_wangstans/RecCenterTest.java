@@ -14,7 +14,9 @@ public class RecCenterTest {
     public ActivityScenarioRule<VRecActivity> mActivityRule = new ActivityScenarioRule<>(VRecActivity.class);
 
     @Test
-    public void ensureDateBookingsShow() {}
+    public void ensureDateBookingsShow() {
+
+    }
 
     @Test
     public void ensureBookingReservations() {}

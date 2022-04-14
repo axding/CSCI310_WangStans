@@ -22,6 +22,8 @@ public class LoginFragment extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    SharedPreferences waitManager;
+    SharedPreferences.Editor waitEditor;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -35,18 +37,18 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+
+        Populator p = new Populator(getContext());
+        p.populateUser2();
+
         sharedPreferences = context.getSharedPreferences( "usersFile", Context.MODE_PRIVATE);
 
         editor = sharedPreferences.edit();
-        editor.putString("-1", "student,student,student,student");
-        editor.apply();
-//        waitManager = getContext().getSharedPreferences( "waitManager", Context.MODE_PRIVATE);
-//        waitEditor = waitManager.edit();
-//
-//        for(int i=0;i<waitingUsers.length;i++){
-//            waitEditor.putString(waitingUsers[i]+"", "true");
-//        }
-//        waitEditor.apply();
+
+//        editor.putString("-1", "student,student,student,student");
+//        editor.apply();
+
+
         super.onAttach(context);
     }
 
@@ -70,18 +72,24 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 username = editUserName.getText().toString();
                 password = editPassword.getText().toString();
-
+                System.out.println(username);
+                System.out.println(password);
                 int count = sharedPreferences.getInt("count", 0);
 
-                for(int i = -1; i < count; i ++) {
+                for(int i = -2; i < count; i ++) {
                     String key = i + "";
                     String value = sharedPreferences.getString(key,"null");
-                    if(value != null) {
+                    System.out.println("+++"+value);
+
+                    if(!(value.equals("null"))) {
                         String[] userInfo = value.split(",");
                         if(userInfo.length<4)  break;
                         String uName = userInfo[0];
                         String uPass = userInfo[3];
+                        System.out.println("-"+uName);
+                        System.out.println("-"+uPass);
                         if(username.equals(uName) && password.equals(uPass)) {
+
                             editor.putInt("currentUser", i);
                             editor.apply();
                             NavHostFragment.findNavController(LoginFragment.this)

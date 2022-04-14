@@ -36,7 +36,6 @@ public class VRecCenterFragment extends Fragment {
 
     private SharedPreferences sharedWaitlist;
     private SharedPreferences.Editor sharedWaitlistEditor;
-
     private SharedPreferences usersFile;
     private SharedPreferences.Editor usersFileEditor;
 
@@ -50,7 +49,6 @@ public class VRecCenterFragment extends Fragment {
 
         usersFile = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
         usersFileEditor = usersFile.edit();
-
 
         super.onAttach(context);
     }
