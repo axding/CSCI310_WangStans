@@ -3,6 +3,7 @@ package com.example.csci310_wangstans;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.StringStartsWith.startsWith;
@@ -28,6 +29,17 @@ public class ReservationTest {
         onView(withId(R.id.pastResButton)).perform(click());
 
         onView(withId(R.id.pastResButton)).check(matches(withText(startsWith("No"))));
+    }
+
+
+    //use user with no past or upcoming -1
+    @Test
+    public void ensurePastReservationsEmpty2() {
+        onView(withId(R.id.idto1r)).perform(click());
+        onView(withId(R.id.pastResButton)).perform(click());
+        onView(withId(R.id.resDisplay)).check(matches(hasDescendant(withText("No"))));
+
+        //onView(withId(R.id.pastResButton)).check(matches(withText(startsWith("No"))));
     }
 
     @Test

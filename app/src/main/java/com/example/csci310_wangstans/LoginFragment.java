@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,14 @@ public class LoginFragment extends Fragment {
                 password = editPassword.getText().toString();
                 System.out.println(username);
                 System.out.println(password);
+                if(TextUtils.isEmpty(username)) {
+                    editUserName.setError("Username cannot be empty");
+                    return;
+                }
+                if(TextUtils.isEmpty(password)) {
+                    editPassword.setError("Password cannot be empty");
+                    return;
+                }
                 int count = sharedPreferences.getInt("count", 0);
 
                 for(int i = -2; i < count; i ++) {

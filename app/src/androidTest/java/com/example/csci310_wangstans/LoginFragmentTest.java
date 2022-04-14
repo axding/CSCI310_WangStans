@@ -36,6 +36,26 @@ public class LoginFragmentTest {
     }
 
     @Test
+    public void ensureBlankPasswordFails() {
+        // Type text and then press the button.
+        onView(withId(R.id.editUserName))
+                .perform(typeText("student"), closeSoftKeyboard());
+
+        onView(withId(R.id.buttonLogin)).perform(click());
+        onView(withId(R.id.fragment_login)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void ensureBlankUsernameFails() {
+        // Type text and then press the button.
+        onView(withId(R.id.editPassword))
+                .perform(typeText("student"), closeSoftKeyboard());
+
+        onView(withId(R.id.buttonLogin)).perform(click());
+        onView(withId(R.id.fragment_login)).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void ensureCorrectPassword() {
         // Should log in as it corresponds to 0th entry (dummy data) in databsse
         onView(withId(R.id.editUserName))
