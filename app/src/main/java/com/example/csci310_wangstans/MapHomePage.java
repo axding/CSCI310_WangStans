@@ -169,6 +169,7 @@ public class MapHomePage extends Fragment {
     private void populateRes(){
         Populator p = new Populator(getContext());
         p.populateRes();
+        p.setCurrentUser(-2);
     }
 
 
@@ -201,6 +202,9 @@ public class MapHomePage extends Fragment {
             noResText.setGravity(Gravity.CENTER);
             noResText.setText("No upcoming reservations.\nTry scheduling one.");
             layout.addView(noResText);
+
+            TextView title = binding.upcomingReservations;
+            title.setText("No Upcoming Reservations");
             return;
         }
         for(int i=0;i<comingRes.size();i++){

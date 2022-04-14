@@ -39,7 +39,7 @@ public class LoginFragment extends Fragment {
     public void onAttach(Context context) {
 
         Populator p = new Populator(getContext());
-        p.populateUser2();
+        p.setCurrentUser(-2);
 
         sharedPreferences = context.getSharedPreferences( "usersFile", Context.MODE_PRIVATE);
 

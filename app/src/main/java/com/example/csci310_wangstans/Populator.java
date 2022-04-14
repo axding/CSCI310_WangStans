@@ -20,6 +20,8 @@ public class Populator {
     }
     public void setCurrentUser(int user){
         int potUser= userDB.getInt("currUser", -3);
+        populateUser1();
+        populateUser2();
 
         if(potUser==-3){
             if(user==-1){
