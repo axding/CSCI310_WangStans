@@ -79,18 +79,16 @@ public class LoginFragment extends Fragment {
                 for(int i = -2; i < count; i ++) {
                     String key = i + "";
                     String value = sharedPreferences.getString(key,"null");
-                    System.out.println("+++"+value);
 
                     if(!(value.equals("null"))) {
                         String[] userInfo = value.split(",");
                         if(userInfo.length<4)  break;
                         String uName = userInfo[0];
                         String uPass = userInfo[3];
-                        System.out.println("-"+uName);
-                        System.out.println("-"+uPass);
+
                         if(username.equals(uName) && password.equals(uPass)) {
 
-                            editor.putInt("currentUser", i);
+                            editor.putInt("currUser", i);
                             editor.apply();
                             NavHostFragment.findNavController(LoginFragment.this)
                                     .navigate(R.id.action_LoginFragment_to_MapHomePage);

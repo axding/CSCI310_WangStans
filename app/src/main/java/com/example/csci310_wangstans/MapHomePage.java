@@ -173,7 +173,7 @@ public class MapHomePage extends Fragment {
 
     private void checkNotif() {
         userDB=getContext().getSharedPreferences("usersFile",Context.MODE_PRIVATE);
-        String currUser=userDB.getInt("currentUser", -1)+"";
+        String currUser=userDB.getInt("currUser", -1)+"";
 
         waitManager = getContext().getSharedPreferences( "waitManager", Context.MODE_PRIVATE);
         if(waitManager.getString(currUser, "none").equals("true")){
@@ -281,7 +281,6 @@ public class MapHomePage extends Fragment {
                 continue;
             }
             else{
-                System.out.println("adding: "+upcoming[i]);
                 Reservation res= new Reservation(upcoming[i], getContext());
                 if(isUpcoming(res)){
                     comingRes.add(res);

@@ -11,7 +11,7 @@ import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.test.espresso.contrib.PickerActions;
+//import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -65,7 +65,7 @@ public class RecCenterTest {
         int currentYear = today.get(Calendar.YEAR);
         int currentMonth = today.get(Calendar.MONTH);
         int currentDay = today.get(Calendar.DAY_OF_MONTH);
-        onView(withId(R.id.datePicker)).perform(PickerActions.setDate(currentYear, currentMonth, currentDay));
+       // onView(withId(R.id.datePicker)).perform(PickerActions.setDate(currentYear, currentMonth, currentDay));
         onView(withId(R.id.bookingDisplay)).check(matches(withChild(withText("7:00"))));
     }
 /*

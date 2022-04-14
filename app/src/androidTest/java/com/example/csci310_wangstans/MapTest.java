@@ -25,7 +25,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 @RunWith(AndroidJUnit4.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MapTest {
 
     @Rule
@@ -37,7 +36,6 @@ public class MapTest {
     @Test
     public void ensureNoUpcomingReservations() {
 
-        Context c = sharedHolder.getAppContext();
 
         onView(withId(R.id.idto1)).perform(click());
 
@@ -46,13 +44,7 @@ public class MapTest {
 
     @Test
     public void ensureUpcomingReservations() {
-        Context c = sharedHolder.getAppContext();
-        //set -2
-//        userDB = c.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
-//        userEditor = userDB.edit();
-//
-//        userEditor.putInt("currUser", -2);
-//        userEditor.apply();
+
         onView(withId(R.id.idto2)).perform(click());
 
         onView(withId(R.id.upcomingReservations)).check(matches(withText(startsWith("Upcoming"))));

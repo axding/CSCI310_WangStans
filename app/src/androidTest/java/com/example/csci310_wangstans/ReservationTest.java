@@ -20,32 +20,47 @@ public class ReservationTest {
     @Rule
     public ActivityScenarioRule<ReservationActivity> mActivityRule = new ActivityScenarioRule<>(ReservationActivity.class);
 
-    /*
+    //use user with no past or upcoming -1
     @Test
     public void ensurePastReservationsEmpty() {
+
+        onView(withId(R.id.idto1r)).perform(click());
         onView(withId(R.id.pastResButton)).perform(click());
+
         onView(withId(R.id.pastResButton)).check(matches(withText(startsWith("No"))));
     }
 
     @Test
     public void ensureUpcomingReservationsEmpty() {
+        onView(withId(R.id.idto1r)).perform(click());
         onView(withId(R.id.comingResButton)).perform(click());
+
         onView(withId(R.id.comingResButton)).check(matches(withText(startsWith("No"))));
     }
-    */
+
+
+    //-2
     @Test
     public void ensurePastReservationsExists() {
+        onView(withId(R.id.idto2r)).perform(click());
+
         onView(withId(R.id.pastResButton)).perform(click());
+
         onView(withId(R.id.pastResButton)).check(matches(withText(startsWith("Past"))));
     }
 
     @Test
     public void ensureUpcomingReservationsExists() {
+        onView(withId(R.id.idto2r)).perform(click());
+
         onView(withId(R.id.comingResButton)).perform(click());
         onView(withId(R.id.comingResButton)).check(matches(withText(startsWith("Upcoming"))));
     }
 
-    @Test
-    public void ensureCancelUpcomingReservations() {}
+//
+//    @Test
+//    public void ensureCancelUpcomingReservations() {
+//
+//    }
 
 }

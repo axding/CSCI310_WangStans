@@ -140,7 +140,7 @@ public class CRecCenterFragment extends Fragment {
             Button actionButton = new Button(getContext());
             actionButton.setLayoutParams(layoutParams);
 
-            String userId = "" + usersFile.getInt("currentUser", 0);
+            String userId = "" + usersFile.getInt("currUser", 0);
 
             if (util.userInRes(userId, booking, sharedBookings)) {
                 System.out.println("enter");

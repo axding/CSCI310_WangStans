@@ -18,8 +18,6 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 @RunWith(AndroidJUnit4.class)
 public class LoginFragmentTest {
 
-//    @Rule
-//    public ActivityScenarioRule<MainActivity> mActivityRule = new ActivityScenarioRule<>(MainActivity.class);
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityRule = new ActivityScenarioRule<>(MainActivity.class);
 

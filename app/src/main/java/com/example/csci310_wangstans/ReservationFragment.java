@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 
 
 import android.view.Gravity;
@@ -48,6 +49,7 @@ public class ReservationFragment extends Fragment {
     SharedPreferences.Editor editor;
     SharedPreferences.Editor waitEditor;
     SharedPreferences.Editor bookEditor;
+    View idto1r, idto2r;
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,26 +83,54 @@ public class ReservationFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_reservation, container, false);
         binding = FragmentReservationBinding.inflate(inflater, container, false);
+
+        idto1r=binding.idto1r;
+        idto2r=binding.idto2r;
         return binding.getRoot();
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Calendar today = Calendar.getInstance();
+
+        idto1r.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Populator p = new Populator(getContext());
+                p.setDirect(-1);
+                System.out.println("+++++++++++++++++++++++++++++++++++");
+
+                p.populateRes();
+                populateRes();
+
+            }
+        });
+
+        idto2r.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("---------------------------------------------");
+
+                Populator m = new Populator(getContext());
+                m.setDirect(-2);
+                m.populateRes();
+                populateRes();
+
+            }
+        });
+
         binding.pastResButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 populateRes();
 
-//                LinearLayout ll = binding.bookingDisplay;
-//                ll.removeAllViews();
-//                String date = (datePicker.getMonth()+1) + "" + datePicker.getDayOfMonth() + "" + datePicker.getYear();
-                //readReservationFile(date);
                 LinearLayout ll = binding.resDisplay;
                 ll.removeAllViews();
                 showPastRes();
             }
         });
+
         binding.comingResButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,7 +223,7 @@ public class ReservationFragment extends Fragment {
                     String cancelEnc=res.getResEnc();
 
                     //get user string
-                    int currUser=userDB.getInt("currentUser", -1);
+                    int currUser=userDB.getInt("currUser", -1);
                     String userString=userDB.getString(currUser+"", "none");
 
                     //remove the enc
@@ -214,7 +244,7 @@ public class ReservationFragment extends Fragment {
                     newString=newString.substring(0,newString.length()-1);
                     //push back into pref
                     editor = userDB.edit();
-                    System.out.println(newString);
+                    //System.out.println(newString);
                     editor.putString(currUser+"", newString);
                     editor.apply();
 
@@ -237,7 +267,6 @@ public class ReservationFragment extends Fragment {
                         }
                     }
 
-                    System.out.println(bookingString);
 
                     bookingString=bookingString.substring(0,bookingString.length()-1);
 
@@ -269,6 +298,8 @@ public class ReservationFragment extends Fragment {
             });
 
             if (layout != null) {
+                Button button = binding.comingResButton;
+                button.setText("Upcoming Reservations");
                 layout.addView(loc);
                 layout.addView(dateText);
                 layout.addView(timeText);
@@ -349,6 +380,8 @@ public class ReservationFragment extends Fragment {
             buffer.setText("------------");
 
             if (layout != null) {
+                Button button = binding.pastResButton;
+                button.setText("Past Reservations");
                 layout.addView(loc);
                 layout.addView(dateText);
 
@@ -366,6 +399,7 @@ public class ReservationFragment extends Fragment {
         allUserRes.clear();
         pastRes.clear();
         comingRes.clear();
+
         int userID=1;
         String info=findUserInfo();
 
@@ -413,8 +447,6 @@ public class ReservationFragment extends Fragment {
 
             }
         }
-
-
 
         //0 is userId
         //1 is name
@@ -500,8 +532,9 @@ public class ReservationFragment extends Fragment {
         String results="";
 
         userDB = getContext().getSharedPreferences("usersFile", Context.MODE_PRIVATE);
-        int currUserID=userDB.getInt("currentUser", -1);
+        int currUserID=userDB.getInt("currUser", -1);
         String userString=userDB.getString(currUserID+"","none");
+        //System.out.println("used here:" +userString);
         return userString;
 
 
