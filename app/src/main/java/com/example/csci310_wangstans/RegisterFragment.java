@@ -3,6 +3,7 @@ package com.example.csci310_wangstans;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,24 @@ public class RegisterFragment extends Fragment {
                 name = editName.getText().toString();
                 email = editEmail.getText().toString();
                 password = editPassword.getText().toString();
+
+                if(TextUtils.isEmpty(username)) {
+                    editUserName.setError("Username cannot be empty");
+                    return;
+                }
+                if(TextUtils.isEmpty(name)) {
+                    editName.setError("Name cannot be empty");
+                    return;
+                }
+                if(TextUtils.isEmpty(email)) {
+                    editEmail.setError("Email cannot be empty");
+                    return;
+                }
+                if(TextUtils.isEmpty(password)) {
+                    editPassword.setError("Password cannot be empty");
+                    return;
+                }
+
                 String value = username + "," + name + "," + email + "," + password;
                 int count = sharedPreferences.getInt( "count", 0);
                 String count_string = "" + count;
