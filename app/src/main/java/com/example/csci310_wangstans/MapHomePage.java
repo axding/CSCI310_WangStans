@@ -241,6 +241,8 @@ public class MapHomePage extends Fragment {
                 layout.addView(buffer);
             }
         }
+        TextView title = binding.upcomingReservations;
+        title.setText("Upcoming Reservations");
     }
 
     public void getUpcomingEvents() {
