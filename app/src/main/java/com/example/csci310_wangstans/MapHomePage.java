@@ -28,7 +28,7 @@ import java.util.Vector;
 
 public class MapHomePage extends Fragment {
 
-    View hsc, lyon, racquetball, uac, village, track;
+    View hsc, lyon, racquetball, uac, village, track, idto1, idto2;
     LinearLayout reservations;
 
     Vector<Reservation> allUserRes = new Vector<>();
@@ -66,7 +66,6 @@ public class MapHomePage extends Fragment {
         binding = FragmentMapHomePageBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -80,6 +79,8 @@ public class MapHomePage extends Fragment {
         else{
             System.out.println("already made");
         }
+
+        //makeUsers(-1);
         checkNotif();
         loadQuickView();
 
@@ -98,6 +99,8 @@ public class MapHomePage extends Fragment {
         village = binding.village;
         lyon = binding.lyon;
         racquetball = binding.racquetball;
+        idto1 = binding.idto1;
+        idto2 = binding.idto2;
 
         hsc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +149,26 @@ public class MapHomePage extends Fragment {
                         .navigate(R.id.action_MapHomePage_to_RRecCenterFragment);
             }
         });
+
+        idto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Populator p = new Populator(getContext());
+                p.setDirect(-1);
+                loadQuickView();
+
+            }
+        });
+
+        idto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Populator p = new Populator(getContext());
+                p.setDirect(-2);
+                loadQuickView();
+
+            }
+        });
     }
 
     private void checkNotif() {
@@ -159,17 +182,19 @@ public class MapHomePage extends Fragment {
             waitManager.edit().remove(currUser);
             waitManager.edit().apply();
 
-
-
         }
 
-
     }
+
+    private void makeUsers(int i) {
+        Populator p = new Populator(getContext());
+        p.setCurrentUser(i);
+    }
+
 
     private void populateRes(){
         Populator p = new Populator(getContext());
         p.populateRes();
-        p.setCurrentUser(-2);
     }
 
 
@@ -183,6 +208,7 @@ public class MapHomePage extends Fragment {
 
     private void loadQuickView() {
         //load info
+
         allUserRes.clear();
         comingRes.clear();
         getUpcomingEvents();
@@ -247,7 +273,7 @@ public class MapHomePage extends Fragment {
 
     public void getUpcomingEvents() {
         userDB=getContext().getSharedPreferences("usersFile", Context.MODE_PRIVATE);
-        String userID=userDB.getInt("currentUser",1)+"";
+        String userID=userDB.getInt("currUser",1)+"";
         String upcoming[]=userDB.getString(userID, "none").split(",");
 
         for(int i=0;i<upcoming.length;i++){

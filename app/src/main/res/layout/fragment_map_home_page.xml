@@ -98,4 +98,20 @@
         android:layout_marginTop="455dp"
         android:background="@android:color/transparent" />
 
+    <View
+        android:id="@+id/idto1"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="75dp"
+        android:background="@android:color/transparent" />
+
+    <View
+        android:id="@+id/idto2"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="75dp"
+        android:background="@android:color/transparent" />
+
 </RelativeLayout>
