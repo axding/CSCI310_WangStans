@@ -126,6 +126,9 @@ public class ReservationFragment extends Fragment {
             noResText.setGravity(Gravity.CENTER);
             noResText.setText("No upcoming reservations. Try scheduling one.");
             layout.addView(noResText);
+
+            Button button = binding.comingResButton;
+            button.setText("No Upcoming Reservations");
             return;
         }
 
@@ -272,6 +275,9 @@ public class ReservationFragment extends Fragment {
                 layout.addView(cancelButton);
             }
         }
+
+        Button button = binding.comingResButton;
+        button.setText("Upcoming Reservations");
     }
 
     private void showPastRes(){
@@ -286,6 +292,9 @@ public class ReservationFragment extends Fragment {
             noResText.setGravity(Gravity.CENTER);
             noResText.setText("No past reservations.");
             layout.addView(noResText);
+
+            Button button = binding.pastResButton;
+            button.setText("No Past Reservations");
             return;
         }
         for(int i = 0; i< pastRes.size(); i++) {
@@ -348,6 +357,9 @@ public class ReservationFragment extends Fragment {
 
             }
         }
+
+        Button button = binding.pastResButton;
+        button.setText("Past Reservations");
 
     }
     private void populateRes(){
