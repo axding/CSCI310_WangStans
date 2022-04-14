@@ -37,7 +37,7 @@ public class RecRegisterTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void registerTest() {
+    public void ensureCorrectRegister() {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.buttonRegister), withText("Register"),
                         childAtPosition(
@@ -56,7 +56,7 @@ public class RecRegisterTest {
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("mcho"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("matthewcho"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.editName),
@@ -66,7 +66,7 @@ public class RecRegisterTest {
                                         0),
                                 3),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("mcho"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("Matthew Cho"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.editEmail),
@@ -76,7 +76,7 @@ public class RecRegisterTest {
                                         0),
                                 4),
                         isDisplayed()));
-        appCompatEditText3.perform(replaceText("mcho"), closeSoftKeyboard());
+        appCompatEditText3.perform(replaceText("mcho9434@usc.edu"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.editPassword),
@@ -86,7 +86,7 @@ public class RecRegisterTest {
                                         0),
                                 5),
                         isDisplayed()));
-        appCompatEditText4.perform(replaceText("mcho"), closeSoftKeyboard());
+        appCompatEditText4.perform(replaceText("student"), closeSoftKeyboard());
     }
 
     private static Matcher<View> childAtPosition(

@@ -32,16 +32,6 @@ public class ReservationTest {
     }
 
 
-    //use user with no past or upcoming -1
-    @Test
-    public void ensurePastReservationsEmpty2() {
-        onView(withId(R.id.idto1r)).perform(click());
-        onView(withId(R.id.pastResButton)).perform(click());
-        onView(withId(R.id.resDisplay)).check(matches(hasDescendant(withText("No"))));
-
-        //onView(withId(R.id.pastResButton)).check(matches(withText(startsWith("No"))));
-    }
-
     @Test
     public void ensureUpcomingReservationsEmpty() {
         onView(withId(R.id.idto1r)).perform(click());
