@@ -24,7 +24,7 @@ public class RegisterFragmentTest {
     @Test
     public void ensureBlankUsername() {
         onView(withId(R.id.editEmail))
-                .perform(typeText("mcho9ddddddd434@usc.edu"), closeSoftKeyboard());
+                .perform(typeText("mcho9434@usc.edu"), closeSoftKeyboard());
         onView(withId(R.id.editName))
                 .perform(typeText("Matthew Cho"), closeSoftKeyboard());
         onView(withId(R.id.editPassword))
@@ -37,7 +37,7 @@ public class RegisterFragmentTest {
     @Test
     public void ensureBlankName() {
         onView(withId(R.id.editEmail))
-                .perform(typeText("mcho9ddddddd434@usc.edu"), closeSoftKeyboard());
+                .perform(typeText("mcho9434@usc.edu"), closeSoftKeyboard());
         onView(withId(R.id.editUserName))
                 .perform(typeText("mcho"), closeSoftKeyboard());
         onView(withId(R.id.editPassword))
@@ -63,7 +63,7 @@ public class RegisterFragmentTest {
     @Test
     public void ensureBlankPassword() {
         onView(withId(R.id.editEmail))
-                .perform(typeText("mcho9ddddddd434@usc.edu"), closeSoftKeyboard());
+                .perform(typeText("mcho9434@usc.edu"), closeSoftKeyboard());
         onView(withId(R.id.editName))
                 .perform(typeText("Matthew Cho"), closeSoftKeyboard());
         onView(withId(R.id.editUserName))
