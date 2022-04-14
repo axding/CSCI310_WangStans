@@ -128,6 +128,7 @@ public class ReservationFragment extends Fragment {
             layout.addView(noResText);
             return;
         }
+
         for(int i = 0; i< comingRes.size(); i++) {
 
             Reservation res = comingRes.get(i);
@@ -199,7 +200,7 @@ public class ReservationFragment extends Fragment {
 
 
                     for(int i=0;i<userArr.length;i++){
-                        if(userArr[i].equals(currUser)){
+                        if(userArr[i].equals(cancelEnc)){
                            continue;
                         }
                         else{
@@ -210,6 +211,7 @@ public class ReservationFragment extends Fragment {
                     newString=newString.substring(0,newString.length()-1);
                     //push back into pref
                     editor = userDB.edit();
+                    System.out.println(newString);
                     editor.putString(currUser+"", newString);
                     editor.apply();
 
@@ -218,7 +220,7 @@ public class ReservationFragment extends Fragment {
                     bookingDB = getContext().getSharedPreferences( "sharedBooking", Context.MODE_PRIVATE);
 
                     bookingString=bookingDB.getString(cancelEnc, "can't find one");
-                    System.out.println(bookingString);
+                    //System.out.println(bookingString);
                     String bookArr[]=bookingString.split(",");
                     bookingString="";
 
@@ -233,7 +235,9 @@ public class ReservationFragment extends Fragment {
                     }
 
                     System.out.println(bookingString);
+
                     bookingString=bookingString.substring(0,bookingString.length()-1);
+
                     bookEditor = bookingDB.edit();
                     bookEditor.putString(cancelEnc+"", bookingString);
                     bookEditor.apply();

@@ -36,7 +36,6 @@ public class VRecCenterFragment extends Fragment {
 
     private SharedPreferences sharedWaitlist;
     private SharedPreferences.Editor sharedWaitlistEditor;
-
     private SharedPreferences usersFile;
     private SharedPreferences.Editor usersFileEditor;
 

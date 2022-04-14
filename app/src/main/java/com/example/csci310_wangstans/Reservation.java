@@ -32,7 +32,7 @@ public class Reservation {
         String resString=bookings.getString(resEncoding, "no res");
 
         String resArr[]=resString.split(",");
-        System.out.println("resfound");
+
        // this.date=resArr[3];
         this.date=resArr[3];
         this.startTime=resArr[1];
@@ -81,12 +81,12 @@ public class Reservation {
     }
 
     public void printReservation(){
-        System.out.println("Start");
-        System.out.println(this.startTime);
-        System.out.println(this.endTime);
-        System.out.println(this.date);
-        System.out.println(this.resEncoding);
-        System.out.println("End");
+//        System.out.println("Start");
+//        System.out.println(this.startTime);
+//        System.out.println(this.endTime);
+//        System.out.println(this.date);
+//        System.out.println(this.resEncoding);
+//        System.out.println("End");
 
     }
 
