@@ -59,10 +59,4 @@ public class ReservationTest {
         onView(withId(R.id.comingResButton)).check(matches(withText(startsWith("Upcoming"))));
     }
 
-//
-//    @Test
-//    public void ensureCancelUpcomingReservations() {
-//
-//    }
-
 }
