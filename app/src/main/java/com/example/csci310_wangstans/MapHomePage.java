@@ -462,12 +462,12 @@ public class MapHomePage extends Fragment {
         sharedBookingsEditor.putString("v48", "v48,1900,1950,4-14-2022");
         sharedBookingsEditor.putString("h48", "h48,1900,1950,4-14-2022");
         sharedBookingsEditor.putString("r48", "r48,1900,1950,4-14-2022");
-        sharedBookingsEditor.putString("c49", "c49,2000,2050,4-14-2022, 100");
-        sharedBookingsEditor.putString("u49", "u49,2000,2050,4-14-2022, 100");
-        sharedBookingsEditor.putString("l49", "l49,2000,2050,4-14-2022, 100");
-        sharedBookingsEditor.putString("v49", "v49,2000,2050,4-14-2022, 100");
-        sharedBookingsEditor.putString("h49", "h49,2000,2050,4-14-2022, 100");
-        sharedBookingsEditor.putString("r49", "r49,2000,2050,4-14-2022, 100");
+        sharedBookingsEditor.putString("c49", "c49,2000,2050,4-14-2022,100");
+        sharedBookingsEditor.putString("u49", "u49,2000,2050,4-14-2022,100");
+        sharedBookingsEditor.putString("l49", "l49,2000,2050,4-14-2022,100");
+        sharedBookingsEditor.putString("v49", "v49,2000,2050,4-14-2022,100");
+        sharedBookingsEditor.putString("h49", "h49,2000,2050,4-14-2022,100");
+        sharedBookingsEditor.putString("r49", "r49,2000,2050,4-14-2022,100");
         sharedBookingsEditor.putString("c50", "c50,2100,2150,4-14-2022");
         sharedBookingsEditor.putString("u50", "u50,2100,2150,4-14-2022");
         sharedBookingsEditor.putString("l50", "l50,2100,2150,4-14-2022");
@@ -767,7 +767,7 @@ public class MapHomePage extends Fragment {
     }
 
 
-    private boolean isPopulated() {
+    public boolean isPopulated() {
 
         if(sharedBookings.getString("c0", "none").equals("none")){
             return false;
@@ -834,7 +834,7 @@ public class MapHomePage extends Fragment {
         }
     }
 
-    private void getUpcomingEvents() {
+    public void getUpcomingEvents() {
         userDB=getContext().getSharedPreferences("usersFile", Context.MODE_PRIVATE);
         String userID=userDB.getInt("currentUser",1)+"";
         String upcoming[]=userDB.getString(userID, "none").split(",");
@@ -851,6 +851,10 @@ public class MapHomePage extends Fragment {
                 }
             }
         }
+    }
+
+    public Vector<Reservation> getComingRes() {
+        return comingRes;
     }
 
     private boolean isUpcoming(Reservation res) {

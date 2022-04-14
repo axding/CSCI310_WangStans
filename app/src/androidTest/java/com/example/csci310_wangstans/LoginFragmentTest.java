@@ -1,6 +1,5 @@
 package com.example.csci310_wangstans;
 
-import androidx.fragment.app.testing.FragmentScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.runner.RunWith;
 import org.junit.Rule;

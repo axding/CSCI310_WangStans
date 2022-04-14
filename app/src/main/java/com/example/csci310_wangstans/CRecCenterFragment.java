@@ -41,6 +41,8 @@ public class CRecCenterFragment extends Fragment {
     private SharedPreferences usersFile;
     private SharedPreferences.Editor usersFileEditor;
 
+    private RecCenterUtil util;
+
     @Override
     public void onAttach(Context context) {
         sharedBookings = context.getSharedPreferences("sharedBooking", Context.MODE_PRIVATE);
@@ -52,6 +54,7 @@ public class CRecCenterFragment extends Fragment {
         usersFile = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
         usersFileEditor = usersFile.edit();
 
+        util = new RecCenterUtil();
 
         super.onAttach(context);
     }
@@ -61,29 +64,6 @@ public class CRecCenterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentReccenterBinding.inflate(inflater, container, false);
-
-//        try {
-//            InputStream is = getContext().getAssets().open("db/cResDB.txt");
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-//            String line = reader.readLine();
-//            while(line != null){
-//                String[] resInfo = line.split(",");
-//                String key = resInfo[0];
-//                String value = String.join(",",resInfo);
-//                sharedBookingsEditor.putString(key, value);
-//                sharedBookingsEditor.apply();
-//                line = reader.readLine();
-//            }
-//
-//            is.close();
-//            reader.close();
-//        }
-//        catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         return binding.getRoot();
     }
@@ -162,7 +142,7 @@ public class CRecCenterFragment extends Fragment {
 
             String userId = "" + usersFile.getInt("currentUser", 0);
 
-            if (userInRes(userId, booking)) {
+            if (util.userInRes(userId, booking, sharedBookings)) {
                 System.out.println("enter");
                 actionButton.setEnabled(false);
                 actionButton.setText("Booked!");
@@ -181,7 +161,7 @@ public class CRecCenterFragment extends Fragment {
                             public void onClick(View view) {
                                 actionButton.setText("Added to the waitlist");
                                 actionButton.setEnabled(false);
-                                addToWaitlist(userId, booking);
+                                util.addToWaitlist(userId, booking, sharedWaitlist, sharedWaitlistEditor);
                             }
                         });
                     }
@@ -206,32 +186,6 @@ public class CRecCenterFragment extends Fragment {
                 layout.addView(actionButton);
             }
         }
-    }
-
-    private boolean userInRes(String userId, Booking booking) {
-        String[] resInfo = sharedBookings.getString(booking.getResId(), "").split(",");
-        if (resInfo.length < 5) {
-            return false;
-        }
-
-        for (int i=0; i<resInfo.length; i++) {
-            System.out.println(resInfo[i]);
-            if (resInfo[i].equals(userId)) return true;
-        }
-
-        return false;
-    }
-
-    private void addToWaitlist(String userId, Booking booking) {
-        String resId = booking.getResId();
-        if (sharedWaitlist.contains(resId)) {
-            sharedWaitlistEditor.putString(resId, sharedWaitlist.getString(resId, "") + "," + userId);
-        }
-        else {
-            sharedWaitlistEditor.putString(resId, userId);
-        }
-        sharedWaitlistEditor.apply();
-        booking.addToWaitlist(userId);
     }
 
     private void addReservation(String userId, Booking booking) {

@@ -16,10 +16,10 @@ public class Booking {
         this.resId = resInfo[0];
         this.startTime = parseTime(resInfo[1]);
         this.endTime = parseTime(resInfo[2]);
-        this.numUsers = resInfo.length - 3;
+        this.numUsers = resInfo.length - 4;
         this.users = new Vector<>();
         if (numUsers > 0) {
-            Collections.addAll(this.users, Arrays.copyOfRange(resInfo, 3, resInfo.length));
+            Collections.addAll(this.users, Arrays.copyOfRange(resInfo, 4, resInfo.length));
         }
         this.waitlist = new Vector<>();
     }
@@ -60,9 +60,5 @@ public class Booking {
 
     public void addToWaitlist(String userId) {
         waitlist.add(userId);
-    }
-
-    public void addToUsers(String userId) {
-        users.add(userId);
     }
 }
