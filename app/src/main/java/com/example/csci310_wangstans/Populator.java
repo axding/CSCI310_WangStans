@@ -18,8 +18,49 @@ public class Populator {
         userEditor = userDB.edit();
 
     }
+
+    public void activityUserConfig(){
+
+        //check if user id is 0+
+
+        String current=userDB.getInt("currUser", -4)+"";
+
+        if(Integer.parseInt(current)==-1){
+            //finished first test, switch to user -2
+            userEditor.putInt("currUser", -2);
+            userEditor.apply();
+            System.out.println("in1");
+        }
+        else if(Integer.parseInt(current)>=0 || Integer.parseInt(current)==-2 || Integer.parseInt(current)==-4){//coming from legit login, starting 1st test
+            //no upcoming, user -1
+
+            userEditor.putInt("currUser", -1);
+            userEditor.apply();
+            System.out.println("in2");
+
+        }
+
+    }
+
+    public void setDirect(int user){
+
+        populateUser1();
+        populateUser2();
+
+        if(user==-1){
+            userEditor.putInt("currUser", -1);
+            userEditor.apply();
+        }
+        else if (user==-2){
+            userEditor.putInt("currUser", -2);
+            userEditor.apply();
+        }
+
+    }
+
     public void setCurrentUser(int user){
         int potUser= userDB.getInt("currUser", -3);
+
         populateUser1();
         populateUser2();
 
@@ -32,14 +73,10 @@ public class Populator {
                 userEditor.putInt("currUser", -2);
                 userEditor.apply();
             }
-
         }
-
-
     }
     public void populateUser1(){
         userEditor.putString("-1", "student,student,student,student");
-
         userEditor.apply();
     }
     public void populateUser2(){
@@ -47,6 +84,8 @@ public class Populator {
         userEditor.putString("-2", "mcho,mcho,mcho,mcho,r98,v98,l98,h98,u98,c98,r99,v99,l99,h99,u99,c99");
         userEditor.apply();
     }
+
+
     public void populateRes(){
         System.out.println("Starting..");
         sharedBookingsEditor.putString("c0", "c0,1900,1950,3-29-2022");
@@ -337,24 +376,6 @@ public class Populator {
         sharedBookingsEditor.putString("v47", "v47,2100,2150,4-13-2022");
         sharedBookingsEditor.putString("h47", "h47,2100,2150,4-13-2022");
         sharedBookingsEditor.putString("r47", "r47,2100,2150,4-13-2022");
-        sharedBookingsEditor.putString("c48", "c48,1900,1950,4-14-2022");
-        sharedBookingsEditor.putString("u48", "u48,1900,1950,4-14-2022");
-        sharedBookingsEditor.putString("l48", "l48,1900,1950,4-14-2022");
-        sharedBookingsEditor.putString("v48", "v48,1900,1950,4-14-2022");
-        sharedBookingsEditor.putString("h48", "h48,1900,1950,4-14-2022");
-        sharedBookingsEditor.putString("r48", "r48,1900,1950,4-14-2022");
-        sharedBookingsEditor.putString("c49", "c49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("u49", "u49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("l49", "l49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("v49", "v49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("h49", "h49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("r49", "r49,2000,2050,4-14-2022");
-        sharedBookingsEditor.putString("c50", "c50,2100,2150,4-14-2022");
-        sharedBookingsEditor.putString("u50", "u50,2100,2150,4-14-2022");
-        sharedBookingsEditor.putString("l50", "l50,2100,2150,4-14-2022");
-        sharedBookingsEditor.putString("v50", "v50,2100,2150,4-14-2022");
-        sharedBookingsEditor.putString("h50", "h50,2100,2150,4-14-2022");
-        sharedBookingsEditor.putString("r50", "r50,2100,2150,4-14-2022");
         sharedBookingsEditor.putString("c51", "c51,1900,1950,4-15-2022");
         sharedBookingsEditor.putString("u51", "u51,1900,1950,4-15-2022");
         sharedBookingsEditor.putString("l51", "l51,1900,1950,4-15-2022");
