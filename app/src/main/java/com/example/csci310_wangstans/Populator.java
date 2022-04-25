@@ -76,12 +76,12 @@ public class Populator {
         }
     }
     public void populateUser1(){
-        userEditor.putString("-1", "student,student,student,student");
+        userEditor.putString("-1", "student,student,student@usc.edu,student,1234567890");
         userEditor.apply();
     }
     public void populateUser2(){
         //    <string name="-1">student,student,student,student</string>
-        userEditor.putString("-2", "mcho,mcho,mcho,mcho,r98,v98,l98,h98,u98,c98,r99,v99,l99,h99,u99,c99");
+        userEditor.putString("-2", "mcho,mcho,mcho@usc.edu,mcho,0987654321, r98,v98,l98,h98,u98,c98,r99,v99,l99,h99,u99,c99");
         userEditor.apply();
     }
 

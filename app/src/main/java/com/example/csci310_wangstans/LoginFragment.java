@@ -83,6 +83,7 @@ public class LoginFragment extends Fragment {
                     editPassword.setError("Password cannot be empty");
                     return;
                 }
+
                 int count = sharedPreferences.getInt("count", 0);
 
                 for(int i = -2; i < count; i ++) {

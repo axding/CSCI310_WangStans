@@ -29,14 +29,15 @@ public class RegisterFragment extends Fragment {
     String username, uscid, name, email, password;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    int confirmReg=0;
+    int confirmReg = 0;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onAttach(Context context) {
-        sharedPreferences = context.getSharedPreferences( "usersFile", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         super.onAttach(context);
     }
@@ -85,48 +86,55 @@ public class RegisterFragment extends Fragment {
                 email = editEmail.getText().toString();
                 password = editPassword.getText().toString();
 
-                if(TextUtils.isEmpty(username)) {
+                if (TextUtils.isEmpty(username)) {
                     editUserName.setError("Username cannot be empty");
                     return;
                 }
-                if(TextUtils.isEmpty(uscid)) {
+                if (TextUtils.isEmpty(uscid)) {
                     editUSCID.setError("USC ID cannot be empty");
                     return;
                 }
-                if(TextUtils.isEmpty(name)) {
+                if (TextUtils.isEmpty(name)) {
                     editName.setError("Name cannot be empty");
                     return;
                 }
-                if(TextUtils.isEmpty(email)) {
+                if (TextUtils.isEmpty(email)) {
                     editEmail.setError("Email cannot be empty");
                     return;
                 }
-                if(TextUtils.isEmpty(password)) {
+                if (TextUtils.isEmpty(password)) {
                     editPassword.setError("Password cannot be empty");
                     return;
                 }
-                if(!isEmailValid(email) || !isUSCEmailValid(email)) {
+                if (!isEmailValid(email) || !isUSCEmailValid(email)) {
                     editEmail.setError("Invalid email");
                     return;
                 }
-                if(!isUSCIDValid(uscid)) {
+                if (!isUSCIDValid(uscid)) {
                     editUSCID.setError("Invalid ID");
                     return;
                 }
+                if(duplicateEmail(email)) {
+                    editEmail.setError("Email address already exists");
+                    return;
+                }
+                if(duplicateUSCID(uscid)) {
+                    editUSCID.setError("USC ID already exists");
+                    return;
+                }
 
-                String value = username + "," + name + "," + email + "," + password;
-                int count = sharedPreferences.getInt( "count", 0);
+                String value = username + "," + name + "," + email + "," + password + ", " + uscid;
+                int count = sharedPreferences.getInt("count", 0);
                 String count_string = "" + count;
 
                 editor.putString(count_string, value);
-                editor.putInt("count", count+1);
+                editor.putInt("count", count + 1);
                 editor.apply();
 
                 Toast.makeText(getContext(), "Registered", Toast.LENGTH_LONG).show();
 
                 NavHostFragment.findNavController(RegisterFragment.this)
-                            .navigate(R.id.action_RegisterFragment_to_LoginFragment);
-
+                        .navigate(R.id.action_RegisterFragment_to_LoginFragment);
 
 
             }
@@ -140,11 +148,52 @@ public class RegisterFragment extends Fragment {
     }
 
     boolean isUSCEmailValid(String email) {
-        return email.substring(email.length()-8).equals("@usc.edu");
+        return email.substring(email.length() - 8).equals("@usc.edu");
     }
 
     boolean isUSCIDValid(String id) {
-        return id.length()==10;
+        return id.length() == 10;
     }
 
+    public boolean duplicateEmail(String newEmail) {
+        System.out.println("current email: " + newEmail);
+        int count = sharedPreferences.getInt("count", 0);
+        for (int i = -2; i < count; i++) {
+            String key = i + "";
+            String value = sharedPreferences.getString(key, "null");
+
+            if (!(value.equals("null"))) {
+                String[] userInfo = value.split(",");
+                if (userInfo.length < 4) break;
+                String email = userInfo[2];
+                System.out.println("checking email: " + email);
+
+                if (newEmail.equals(email)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean duplicateUSCID(String newUSCID) {
+        System.out.println("current usc id: " + newUSCID);
+        int count = sharedPreferences.getInt("count", 0);
+        for (int i = -2; i < count; i++) {
+            String key = i + "";
+            String value = sharedPreferences.getString(key, "null");
+
+            if (!(value.equals("null"))) {
+                String[] userInfo = value.split(",");
+                if (userInfo.length < 4) break;
+                String uscid = userInfo[4];
+                System.out.println("checking usc id: " + uscid);
+
+                if (newUSCID.equals(uscid.trim())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
