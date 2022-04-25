@@ -42,6 +42,15 @@
             android:hint="Username"/>
 
         <EditText
+            android:id="@+id/editUserID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="USC ID"/>
+
+        <EditText
             android:id="@+id/editName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,6 +81,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Register" />
+
+        <Button
+            android:id="@+id/buttonRegisterToLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Already Have An Account?" />
 
     </LinearLayout>
 
