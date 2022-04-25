@@ -24,9 +24,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class RegisterFragment extends Fragment {
-    Button buttonLogin, buttonRegister;
-    EditText editUserName, editName, editPassword, editEmail;
-    String username, name, email, password;
+    Button buttonLogin, buttonRegister, buttonRegisterToLogin;
+    EditText editUserName, editUSCID, editName, editPassword, editEmail;
+    String username, uscid, name, email, password;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     int confirmReg=0;
@@ -59,9 +59,20 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         editUserName = view.findViewById(R.id.editUserName);
+        editUSCID = view.findViewById(R.id.editUserID);
         editName = view.findViewById(R.id.editName);
         editPassword = view.findViewById(R.id.editPassword);
         editEmail = view.findViewById(R.id.editEmail);
+
+        buttonRegisterToLogin = view.findViewById(R.id.buttonRegisterToLogin);
+
+        buttonRegisterToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(RegisterFragment.this)
+                        .navigate(R.id.action_RegisterFragment_to_LoginFragment);
+            }
+        });
 
         buttonRegister = view.findViewById(R.id.buttonRegister);
 
@@ -69,12 +80,17 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 username = editUserName.getText().toString();
+                uscid = editUSCID.getText().toString();
                 name = editName.getText().toString();
                 email = editEmail.getText().toString();
                 password = editPassword.getText().toString();
 
                 if(TextUtils.isEmpty(username)) {
                     editUserName.setError("Username cannot be empty");
+                    return;
+                }
+                if(TextUtils.isEmpty(uscid)) {
+                    editUSCID.setError("USC ID cannot be empty");
                     return;
                 }
                 if(TextUtils.isEmpty(name)) {
@@ -87,6 +103,14 @@ public class RegisterFragment extends Fragment {
                 }
                 if(TextUtils.isEmpty(password)) {
                     editPassword.setError("Password cannot be empty");
+                    return;
+                }
+                if(!isEmailValid(email) || !isUSCEmailValid(email)) {
+                    editEmail.setError("Invalid email");
+                    return;
+                }
+                if(!isUSCIDValid(uscid)) {
+                    editUSCID.setError("Invalid ID");
                     return;
                 }
 
@@ -109,6 +133,18 @@ public class RegisterFragment extends Fragment {
         });
 
         return view;
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    boolean isUSCEmailValid(String email) {
+        return email.substring(email.length()-8).equals("@usc.edu");
+    }
+
+    boolean isUSCIDValid(String id) {
+        return id.length()==10;
     }
 
 }
