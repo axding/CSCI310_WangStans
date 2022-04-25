@@ -3,6 +3,12 @@ package com.example.csci310_wangstans;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.temporal.ChronoField;
+import java.util.Arrays;
+
 public class Populator {
     private SharedPreferences sharedBookings;
     private SharedPreferences.Editor sharedBookingsEditor;
@@ -84,7 +90,75 @@ public class Populator {
         userEditor.putString("-2", "mcho,mcho,mcho,mcho,r98,v98,l98,h98,u98,c98,r99,v99,l99,h99,u99,c99");
         userEditor.apply();
     }
+    public static boolean isWeekend(final LocalDate ld)
+    {
+        DayOfWeek day = DayOfWeek.of(ld.get(ChronoField.DAY_OF_WEEK));
+        return day == DayOfWeek.SUNDAY || day == DayOfWeek.SATURDAY;
+    }
+    public void smartPopulate(){
+        System.out.println("smart pop");
+        //int month=5;
+        int year= Year.now().getValue();
+        int[] dateLimits={0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30 ,31};
+        if(year%4==0){//account for leap year
+            dateLimits[2]++;
+        }
 
+        String[] recCenters={"c","u","v","h","l","r"};
+        String[] weekdayTimes={"1900,1950","2000,2050","2100,2150"};
+        String[] weekendTimes={"1900,2050","2100,2250"};
+        //new years
+        //mlk
+        //christmas
+        //thanksgiving
+        //420
+        //presidents day
+        String[] holidays={"1-1-"+year, "1-17-"+year, "4-20-"+year, "2-21-"+year, "3-17-"+year, "5-5-"+year, "5-8-"+year};
+        String input="";
+        String dateString="";
+        int indexCount=0;
+        //holidays
+        for(int month=1;month<=12;month++){
+            for(int day=1;day<=dateLimits[month];day++){
+
+                dateString=month+"-"+day+"-"+year;
+                LocalDate someDate = LocalDate.of(year, month, day); // 2nd-Jan-2021
+
+                //weekday will have 1900-1950, 2000-2050, 2100-2150
+                //weekend will have 1900-2050, 2100-2250
+
+                if(!(Arrays.asList(holidays).contains(dateString))) {
+
+                    if (isWeekend(someDate)) {//weekend
+                        for (int i = 0; i <2; i++) {
+                            for (int rec = 0; rec <=5; rec++) {
+                                input = recCenters[rec] + indexCount + "," + weekendTimes[i] + "," + dateString;
+                                //sharedBookingsEditor.putString("c0", "c0,1900,1950,3-29-2022");
+                                System.out.println("adding" + input);
+                                sharedBookingsEditor.putString(recCenters[rec] + indexCount, input);
+
+                            }
+                            indexCount++;
+                        }
+                    } else {
+                        for (int i = 0; i < 3; i++) {
+                            for (int rec = 0; rec <= 5; rec++) {
+                                input = recCenters[rec] + indexCount + "," + weekdayTimes[i] + "," + dateString;
+                                //sharedBookingsEditor.putString("c0", "c0,1900,1950,3-29-2022");
+                                sharedBookingsEditor.putString(recCenters[rec] + indexCount, input);
+
+                            }
+                            indexCount++;
+
+                        }
+
+                    }
+                }
+            }
+        }
+        sharedBookingsEditor.apply();
+        System.out.println(indexCount);
+    }
 
     public void populateRes(){
         System.out.println("Starting..");
