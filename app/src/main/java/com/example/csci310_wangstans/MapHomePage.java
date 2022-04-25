@@ -194,7 +194,8 @@ public class MapHomePage extends Fragment {
 
     private void populateRes(){
         Populator p = new Populator(getContext());
-        p.populateRes();
+        //p.populateRes();
+        p.smartPopulate();
     }
 
 
