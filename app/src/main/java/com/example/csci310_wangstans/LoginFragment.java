@@ -73,8 +73,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 username = editUserName.getText().toString();
                 password = editPassword.getText().toString();
-                System.out.println(username);
-                System.out.println(password);
+                System.out.println("current username: " + username);
+                System.out.println("curent password: " + password);
                 if(TextUtils.isEmpty(username)) {
                     editUserName.setError("Username cannot be empty");
                     return;
@@ -83,6 +83,7 @@ public class LoginFragment extends Fragment {
                     editPassword.setError("Password cannot be empty");
                     return;
                 }
+
                 int count = sharedPreferences.getInt("count", 0);
 
                 for(int i = -2; i < count; i ++) {
@@ -94,9 +95,10 @@ public class LoginFragment extends Fragment {
                         if(userInfo.length<4)  break;
                         String uName = userInfo[0];
                         String uPass = userInfo[3];
+                        System.out.println("checking username: " + uName);
+                        System.out.println("checking password: " + uPass);
 
                         if(username.equals(uName) && password.equals(uPass)) {
-
                             editor.putInt("currUser", i);
                             editor.apply();
                             NavHostFragment.findNavController(LoginFragment.this)
