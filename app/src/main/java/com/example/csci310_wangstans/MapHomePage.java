@@ -30,8 +30,7 @@ import java.util.Vector;
 
 public class MapHomePage extends Fragment {
 
-    View hsc, lyon, uac, village, track, idto1, idto2;
-    Button racquetball;
+    View hsc, lyon, racquetball, uac, village, track, idto1, idto2;
     LinearLayout reservations;
 
     Vector<Reservation> allUserRes = new Vector<>();
