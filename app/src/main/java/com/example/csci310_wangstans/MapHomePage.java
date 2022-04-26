@@ -23,7 +23,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.Map;
 import java.util.Vector;
 
 public class MapHomePage extends Fragment {
@@ -39,6 +41,7 @@ public class MapHomePage extends Fragment {
     private SharedPreferences.Editor sharedBookingsEditor;
 
     private SharedPreferences userDB;
+    private SharedPreferences.Editor userDBEditor;
     private SharedPreferences waitManager;
     private SharedPreferences.Editor waitEditor;
 
@@ -83,7 +86,8 @@ public class MapHomePage extends Fragment {
         //makeUsers(-1);
         checkNotif();
         loadQuickView();
-
+        checkTodayRes();
+        bookFromWait();
         reservations = binding.reservations;
         reservations.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,16 +175,101 @@ public class MapHomePage extends Fragment {
         });
     }
 
-    private void checkNotif() {
+    private void bookFromWait() {
+        //get waitlisted sessions
+
         userDB=getContext().getSharedPreferences("usersFile",Context.MODE_PRIVATE);
         String currUser=userDB.getInt("currUser", -1)+"";
 
+
+//        wa=getContext().getSharedPreferences("usersFile",Context.MODE_PRIVATE);
+//
+//
+//        Map<String,?> keys = w.getAll();
+//
+//        for(Map.Entry<String,?> entry : keys.entrySet()){
+//            Log.d("map values",entry.getKey() + ": " +
+//                    entry.getValue().toString());
+//        }
+
+    }
+
+    private void checkTodayRes() {
+        userDB=getContext().getSharedPreferences("usersFile",Context.MODE_PRIVATE);
+        String currUser=userDB.getInt("currUser", -1)+"";
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int year  = localDate.getYear();
+        int month = localDate.getMonthValue();
+        int day   = localDate.getDayOfMonth();
+
+        String todayDate=month+"-"+day+"-"+year;
+
+        System.out.println("??"+year+month+day);
+        System.out.println("::"+allUserRes.size());
+        boolean today=false;
+        for(int i=0;i<allUserRes.size();i++){
+            System.out.println("---------");
+            System.out.println(allUserRes.get(i).getDate());
+            System.out.println(todayDate);
+            System.out.println("---------");
+            if(allUserRes.get(i).getDate().equals(todayDate)){
+                today=true;
+                break;
+            }
+        }
+        if(today){
+            System.out.println("ininin!");
+            Toast.makeText(getContext(), "You have a gym reservation for today!", Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
+    private void checkNotif() {
+        userDB=getContext().getSharedPreferences("usersFile",Context.MODE_PRIVATE);
+        String currUser=userDB.getInt("currUser", -1)+"";
+        String retryEnc="";
         waitManager = getContext().getSharedPreferences( "waitManager", Context.MODE_PRIVATE);
-        if(waitManager.getString(currUser, "none").equals("true")){
-            System.out.println("notify user "+currUser);
-            Toast.makeText(getActivity().getApplicationContext(), "A session you were on the waitlist for has opened!", Toast.LENGTH_LONG).show();
+        retryEnc=waitManager.getString(currUser, "none");
+        if(!retryEnc.equals("none")){
+            //System.out.println("notify user "+currUser);
             waitManager.edit().remove(currUser);
             waitManager.edit().apply();
+
+            ///try to add to retry Enc
+
+            sharedBookings = getContext().getSharedPreferences("sharedBooking", Context.MODE_PRIVATE);
+            sharedBookingsEditor = sharedBookings.edit();
+
+            String resString=sharedBookings.getString(retryEnc, "none");
+
+            //    <string name="l680">l680,2100,2150,9-15-2022</string>
+            String[] resInfo=resString.split(",");
+            if(resInfo.length!=4){//theres a user
+                Toast.makeText(getActivity().getApplicationContext(), "A session you were on the waitlist for was cancelled! While the system will automatically try to register you, the booking was full when it tried.", Toast.LENGTH_LONG).show();
+
+            }
+            else{//we can reserve for the user
+                Toast.makeText(getActivity().getApplicationContext(), "A session you were on the waitlist for was cancelled! The system automatically captured it.", Toast.LENGTH_LONG).show();
+                resString+=","+currUser;
+
+                //add to shared booking pref
+                sharedBookingsEditor.putString(retryEnc, resString);
+                sharedBookingsEditor.apply();
+
+                //add to user pref
+                //userDBEditor
+                String userString=userDB.getString(currUser, "nouser");
+
+                userDBEditor = userDB.edit();
+                userDBEditor.putString(currUser, userString+","+retryEnc);
+                //userDB.getInt("currUser", -1)+"";
+
+                userDBEditor.apply();
+
+            }
 
         }
 
@@ -282,6 +371,7 @@ public class MapHomePage extends Fragment {
             }
             else{
                 Reservation res= new Reservation(upcoming[i], getContext());
+                allUserRes.add(res);
                 if(isUpcoming(res)){
                     comingRes.add(res);
                 }

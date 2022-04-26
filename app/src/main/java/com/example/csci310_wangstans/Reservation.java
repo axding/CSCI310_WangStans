@@ -81,12 +81,12 @@ public class Reservation {
     }
 
     public void printReservation(){
-//        System.out.println("Start");
-//        System.out.println(this.startTime);
-//        System.out.println(this.endTime);
-//        System.out.println(this.date);
-//        System.out.println(this.resEncoding);
-//        System.out.println("End");
+        System.out.println("Start");
+        System.out.println(this.startTime);
+        System.out.println(this.endTime);
+        System.out.println(this.date);
+        System.out.println(this.resEncoding);
+        System.out.println("End");
 
     }
 

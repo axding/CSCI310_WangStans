@@ -289,7 +289,7 @@ public class ReservationFragment extends Fragment {
                         waitEditor = waitManager.edit();
 
                         for(int i=0;i<waitingUsers.length;i++){
-                            waitEditor.putString(waitingUsers[i]+"", "true");
+                            waitEditor.putString(waitingUsers[i]+"", cancelEnc);
                         }
                         waitEditor.apply();
 
@@ -408,7 +408,7 @@ public class ReservationFragment extends Fragment {
 
         String[] userInfo = info.split(",");
 
-        if(userInfo.length==4){
+        if(userInfo.length==5){
             return;
         }
 
@@ -426,7 +426,7 @@ public class ReservationFragment extends Fragment {
 
         for(int i=0;i<resIDs.size();i++){
             allUserRes.add(new Reservation(resIDs.get(i), getContext()));
-            allUserRes.get(i).printReservation();
+            //allUserRes.get(i).printReservation();
         }
 
 
@@ -453,7 +453,6 @@ public class ReservationFragment extends Fragment {
         //2 is email
         //3 password
         //4+ is reservations
-
 
     }
 
