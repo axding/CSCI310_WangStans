@@ -1,5 +1,6 @@
 package com.example.csci310_wangstans;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.view.Gravity;
@@ -200,8 +202,8 @@ public class ReservationFragment extends Fragment {
             noResText.setTextColor(Color.WHITE);
             layout.addView(noResText);
 
-            Button button = binding.comingResButton;
-            button.setText("No Upcoming Reservations");
+//            Button button = binding.comingResButton;
+//            button.setText("No Upcoming Reservations");
             return;
         }
 
@@ -255,8 +257,13 @@ public class ReservationFragment extends Fragment {
             dateText.setTextColor(Color.WHITE);
 
             Button cancelButton = new Button(getContext());
-            cancelButton.setLayoutParams(layoutParams);
-            cancelButton.setBackgroundColor(Color.YELLOW);
+            LinearLayout.LayoutParams buttonLP = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            buttonLP.gravity = Gravity.CENTER;
+            buttonLP.setMargins(0,10,0,50);
+            cancelButton.setLayoutParams(buttonLP);
+            cancelButton.setWidth(500);
+            cancelButton.setBackgroundColor(getResources().getColor(R.color.yellow));
 
             cancelButton.setText("Cancel Reservation");
             cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -371,8 +378,8 @@ public class ReservationFragment extends Fragment {
             noResText.setTextColor(Color.WHITE);
             layout.addView(noResText);
 
-            Button button = binding.pastResButton;
-            button.setText("No Past Reservations");
+//            Button button = binding.pastResButton;
+//            button.setText("No Past Reservations");
             return;
         }
         for(int i = 0; i< pastRes.size(); i++) {
@@ -464,12 +471,8 @@ public class ReservationFragment extends Fragment {
         }
 
 
-        for(int i=0;i<userInfo.length;i++) {
-            if (i <= 3) {
-                continue;
-            } else {
-                resIDs.add(userInfo[i]);
-            }
+        for(int i=5;i<userInfo.length;i++) {
+            resIDs.add(userInfo[i]);
         }
 
         String test="c0";
@@ -503,7 +506,8 @@ public class ReservationFragment extends Fragment {
         //1 is name
         //2 is email
         //3 password
-        //4+ is reservations
+        //4 is usc id
+        //5+ is reservations
 
     }
 

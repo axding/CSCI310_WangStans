@@ -181,7 +181,12 @@ public class HRecCenterFragment extends Fragment {
             availText.setTextColor(Color.WHITE);
 
             Button actionButton = new Button(getContext());
-            actionButton.setLayoutParams(layoutParams);
+            LinearLayout.LayoutParams buttonLP = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            buttonLP.gravity = Gravity.CENTER;
+            buttonLP.setMargins(0,10,0,50);
+            actionButton.setLayoutParams(buttonLP);
+            actionButton.setWidth(500);
             actionButton.setBackgroundColor(Color.BLACK);
             actionButton.setTextColor(Color.WHITE);
 
@@ -190,6 +195,8 @@ public class HRecCenterFragment extends Fragment {
             if (util.userInRes(userId, booking, sharedBookings)) {
                 actionButton.setEnabled(false);
                 actionButton.setText("Booked!");
+                actionButton.setBackgroundColor(getResources().getColor(R.color.gray));
+                actionButton.setEnabled(false);
             }
             else {
                 if (availSpots == 0) {
@@ -203,6 +210,7 @@ public class HRecCenterFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 actionButton.setText("Added to the waitlist");
+                                actionButton.setBackgroundColor(getResources().getColor(R.color.gray));
                                 actionButton.setEnabled(false);
                                 util.addToWaitlist(userId, booking, sharedWaitlist, sharedWaitlistEditor);
                             }

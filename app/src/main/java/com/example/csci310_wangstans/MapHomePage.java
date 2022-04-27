@@ -353,9 +353,6 @@ public class MapHomePage extends Fragment {
             noResText.setTextColor(Color.WHITE);
             layout.addView(noResText);
 
-            TextView title = binding.upcomingReservations;
-            title.setText("No Upcoming Reservations");
-            title.setTextColor(Color.WHITE);
             return;
         }
         for(int i=0;i<comingRes.size();i++){
