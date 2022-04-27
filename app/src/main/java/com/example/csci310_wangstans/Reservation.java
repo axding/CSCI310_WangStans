@@ -33,7 +33,8 @@ public class Reservation {
         System.out.println(resString);
         String resArr[]=resString.split(",");
 
-       // this.date=resArr[3];
+        if (resArr.length == 1) return;
+
         this.date=resArr[3];
         this.startTime=resArr[1];
         this.endTime=resArr[2];

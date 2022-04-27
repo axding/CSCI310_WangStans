@@ -408,7 +408,7 @@ public class MapHomePage extends Fragment {
         String upcoming[]=userDB.getString(userID, "none").split(",");
 
         for(int i=0;i<upcoming.length;i++){
-            if(i<=3){
+            if(i<=4){
                 continue;
             }
             else{
