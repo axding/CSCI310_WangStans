@@ -30,13 +30,14 @@ public class Reservation {
         this.recLoc=resEncoding.substring(0,1);
         this.bookings=context.getSharedPreferences("sharedBooking", Context.MODE_PRIVATE);
         String resString=bookings.getString(resEncoding, "no res");
-
+        System.out.println(resString);
         String resArr[]=resString.split(",");
 
        // this.date=resArr[3];
         this.date=resArr[3];
         this.startTime=resArr[1];
         this.endTime=resArr[2];
+
         if(recLoc.equals("c")){
             recLoc="Cromwell Track";
         }
