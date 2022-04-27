@@ -9,32 +9,92 @@
         android:id="@+id/cRecCenterFragment"
         android:name="com.example.csci310_wangstans.CRecCenterFragment"
         android:label="Cromwell Track Bookings"
-        tools:layout="@layout/fragment_reccenter" />
+        tools:layout="@layout/fragment_reccenter">
+        <action
+            android:id="@+id/action_RecCenterFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/vRecCenterFragment"
         android:name="com.example.csci310_wangstans.VRecCenterFragment"
         android:label="Village Fitness Center Bookings"
-        tools:layout="@layout/fragment_reccenter" />
+        tools:layout="@layout/fragment_reccenter">
+        <action
+            android:id="@+id/action_RecCenterFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/lRecCenterFragment"
         android:name="com.example.csci310_wangstans.LRecCenterFragment"
         android:label="Lyon Center Bookings"
-        tools:layout="@layout/fragment_reccenter" />
+        tools:layout="@layout/fragment_reccenter">
+        <action
+            android:id="@+id/action_RecCenterFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/uRecCenterFragment"
         android:name="com.example.csci310_wangstans.URecCenterFragment"
         android:label="UAC Swim Bookings"
-        tools:layout="@layout/fragment_reccenter" />
+        tools:layout="@layout/fragment_reccenter">
+        <action
+            android:id="@+id/action_RecCenterFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/hRecCenterFragment"
         android:name="com.example.csci310_wangstans.HRecCenterFragment"
         android:label="HSC Fitness Center Bookings"
-        tools:layout="@layout/fragment_reccenter" />
+        tools:layout="@layout/fragment_reccenter">
+        <action
+            android:id="@+id/action_RecCenterFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/rRecCenterFragment"
         android:name="com.example.csci310_wangstans.RRecCenterFragment"
         android:label="Raquetball Court Bookings"
-        tools:layout="@layout/fragment_reccenter" />
+        tools:layout="@layout/fragment_reccenter">
+        <action
+            android:id="@+id/action_RecCenterFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_RecCenterFragment_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.csci310_wangstans.LoginFragment"
@@ -73,7 +133,12 @@
         <action
             android:id="@+id/action_MapHomePage_to_ReservationFragment"
             app:destination="@id/reservationFragment" />
-
+        <action
+            android:id="@+id/action_MapHomePage_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_MapHomePage_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -89,4 +154,28 @@
         android:name="com.example.csci310_wangstans.ReservationFragment"
         android:label="Reservations"
         tools:layout="@layout/fragment_reservation" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.csci310_wangstans.AboutFragment"
+        android:label="About Us"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_AboutFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_AboutFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.csci310_wangstans.ProfileFragment"
+        android:label="Your Profile"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_ProfileFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_ProfileFragment_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
 </navigation>

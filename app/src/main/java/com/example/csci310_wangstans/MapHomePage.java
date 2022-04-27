@@ -2,17 +2,24 @@ package com.example.csci310_wangstans;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +38,7 @@ import java.util.Vector;
 public class MapHomePage extends Fragment {
 
     View hsc, lyon, racquetball, uac, village, track, idto1, idto2;
+    ImageButton home, about, profile;
     LinearLayout reservations;
 
     Vector<Reservation> allUserRes = new Vector<>();
@@ -106,6 +114,10 @@ public class MapHomePage extends Fragment {
         idto1 = binding.idto1;
         idto2 = binding.idto2;
 
+        home = binding.home;
+        about = binding.about;
+        profile = binding.profile;
+
         hsc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +183,27 @@ public class MapHomePage extends Fragment {
                 p.setDirect(-2);
                 loadQuickView();
 
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(MapHomePage.this)
+                        .navigate(R.id.action_MapHomePage_to_AboutFragment);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(MapHomePage.this)
+                        .navigate(R.id.action_MapHomePage_to_ProfileFragment);
             }
         });
     }
@@ -317,10 +350,12 @@ public class MapHomePage extends Fragment {
             noResText.setLayoutParams((layoutParams));
             noResText.setGravity(Gravity.CENTER);
             noResText.setText("No upcoming reservations.\nTry scheduling one.");
+            noResText.setTextColor(Color.WHITE);
             layout.addView(noResText);
 
             TextView title = binding.upcomingReservations;
             title.setText("No Upcoming Reservations");
+            title.setTextColor(Color.WHITE);
             return;
         }
         for(int i=0;i<comingRes.size();i++){
@@ -330,25 +365,31 @@ public class MapHomePage extends Fragment {
             String end=res.getEndTime().substring(0,2)+":"+res.getEndTime().substring(2,4);
             String time = start+ " - " + end;
 
+
+
             TextView timeText = new TextView(getContext());
             timeText.setLayoutParams(layoutParams);
-            timeText.setGravity(Gravity.CENTER);
+            timeText.setGravity(Gravity.LEFT);
             timeText.setText(time);
-
-            TextView loc = new TextView(getContext());
-            loc.setLayoutParams((layoutParams));
-            loc.setGravity(Gravity.CENTER);
-            loc.setText(res.getLoc());
+            timeText.setTextColor(Color.WHITE);
 
             TextView dateText = new TextView(getContext());
             dateText.setLayoutParams((layoutParams));
-            dateText.setGravity(Gravity.CENTER);
+            dateText.setGravity(Gravity.LEFT);
             dateText.setText(res.getDate());
+            dateText.setTextColor(Color.WHITE);
+
+            TextView loc = new TextView(getContext());
+            loc.setLayoutParams((layoutParams));
+            loc.setGravity(Gravity.LEFT);
+            loc.setText(res.getLoc());
+            loc.setTextColor(Color.WHITE);
 
             TextView buffer = new TextView(getContext());
             buffer.setLayoutParams(layoutParams);
             buffer.setGravity(Gravity.CENTER);
             buffer.setText("-----------------------------------------");
+            buffer.setTextColor(Color.WHITE);
 
             if (layout != null) {
                 layout.addView(loc);

@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.csci310_wangstans.databinding.FragmentReccenterBinding;
 
@@ -40,6 +42,8 @@ public class VRecCenterFragment extends Fragment {
     private SharedPreferences.Editor usersFileEditor;
 
     private RecCenterUtil util;
+
+    private ImageButton home, about, profile, back;
 
     @Override
     public void onAttach(Context context) {
@@ -68,6 +72,47 @@ public class VRecCenterFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Nav bar
+        home = binding.home;
+        about = binding.about;
+        profile = binding.profile;
+        back = binding.back;
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(VRecCenterFragment.this)
+                        .navigate(R.id.action_RecCenterFragment_to_MapHomePage);
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(VRecCenterFragment.this)
+                        .navigate(R.id.action_RecCenterFragment_to_AboutFragment);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(VRecCenterFragment.this)
+                        .navigate(R.id.action_RecCenterFragment_to_ProfileFragment);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(VRecCenterFragment.this)
+                        .navigate(R.id.action_RecCenterFragment_to_MapHomePage);
+            }
+        });
+
+        binding.name.setText("Village Fitness");
+        // End of Nav Bar
 
         DatePicker datePicker = binding.datePicker;
 
