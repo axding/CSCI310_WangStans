@@ -153,7 +153,17 @@
         android:id="@+id/reservationFragment"
         android:name="com.example.csci310_wangstans.ReservationFragment"
         android:label="Reservations"
-        tools:layout="@layout/fragment_reservation" />
+        tools:layout="@layout/fragment_reservation">
+        <action
+            android:id="@+id/action_ReservationFragment_to_MapHomePage"
+            app:destination="@id/mapHomePage" />
+        <action
+            android:id="@+id/action_ReservationFragment_to_AboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_ReservationFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.csci310_wangstans.AboutFragment"

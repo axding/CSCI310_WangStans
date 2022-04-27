@@ -369,19 +369,19 @@ public class MapHomePage extends Fragment {
 
             TextView timeText = new TextView(getContext());
             timeText.setLayoutParams(layoutParams);
-            timeText.setGravity(Gravity.LEFT);
+            timeText.setGravity(Gravity.CENTER);
             timeText.setText(time);
             timeText.setTextColor(Color.WHITE);
 
             TextView dateText = new TextView(getContext());
             dateText.setLayoutParams((layoutParams));
-            dateText.setGravity(Gravity.LEFT);
+            dateText.setGravity(Gravity.CENTER);
             dateText.setText(res.getDate());
             dateText.setTextColor(Color.WHITE);
 
             TextView loc = new TextView(getContext());
             loc.setLayoutParams((layoutParams));
-            loc.setGravity(Gravity.LEFT);
+            loc.setGravity(Gravity.CENTER);
             loc.setText(res.getLoc());
             loc.setTextColor(Color.WHITE);
 

@@ -2,6 +2,7 @@ package com.example.csci310_wangstans;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,6 +48,7 @@ public class ReservationFragment extends Fragment {
     private SharedPreferences bookingDB;
     private SharedPreferences waitDB;
     private SharedPreferences waitManager;
+    private ImageButton home, about, profile, back;
     SharedPreferences.Editor editor;
     SharedPreferences.Editor waitEditor;
     SharedPreferences.Editor bookEditor;
@@ -90,6 +93,45 @@ public class ReservationFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Nav bar
+        home = binding.home;
+        about = binding.about;
+        profile = binding.profile;
+        back = binding.back;
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(ReservationFragment.this)
+                        .navigate(R.id.action_ReservationFragment_to_MapHomePage);
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(ReservationFragment.this)
+                        .navigate(R.id.action_ReservationFragment_to_AboutFragment);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(ReservationFragment.this)
+                        .navigate(R.id.action_ReservationFragment_to_ProfileFragment);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(ReservationFragment.this)
+                        .navigate(R.id.action_ReservationFragment_to_MapHomePage);
+            }
+        });
+        // End of Nav Bar
 
         Calendar today = Calendar.getInstance();
 
@@ -155,6 +197,7 @@ public class ReservationFragment extends Fragment {
             noResText.setLayoutParams((layoutParams));
             noResText.setGravity(Gravity.CENTER);
             noResText.setText("No upcoming reservations. Try scheduling one.");
+            noResText.setTextColor(Color.WHITE);
             layout.addView(noResText);
 
             Button button = binding.comingResButton;
@@ -197,20 +240,23 @@ public class ReservationFragment extends Fragment {
             timeText.setLayoutParams(layoutParams);
             timeText.setGravity(Gravity.CENTER);
             timeText.setText(time);
+            timeText.setTextColor(Color.WHITE);
 
             TextView loc = new TextView(getContext());
             loc.setLayoutParams((layoutParams));
             loc.setGravity(Gravity.CENTER);
             loc.setText(recLoc);
+            loc.setTextColor(Color.WHITE);
 
             TextView dateText = new TextView(getContext());
             dateText.setLayoutParams((layoutParams));
             dateText.setGravity(Gravity.CENTER);
             dateText.setText(res.getDate());
-
+            dateText.setTextColor(Color.WHITE);
 
             Button cancelButton = new Button(getContext());
             cancelButton.setLayoutParams(layoutParams);
+            cancelButton.setBackgroundColor(Color.YELLOW);
 
             cancelButton.setText("Cancel Reservation");
             cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -322,6 +368,7 @@ public class ReservationFragment extends Fragment {
             noResText.setLayoutParams((layoutParams));
             noResText.setGravity(Gravity.CENTER);
             noResText.setText("No past reservations.");
+            noResText.setTextColor(Color.WHITE);
             layout.addView(noResText);
 
             Button button = binding.pastResButton;
@@ -363,21 +410,25 @@ public class ReservationFragment extends Fragment {
             timeText.setLayoutParams(layoutParams);
             timeText.setGravity(Gravity.CENTER);
             timeText.setText(time);
+            timeText.setTextColor(Color.WHITE);
 
             TextView loc = new TextView(getContext());
             loc.setLayoutParams((layoutParams));
             loc.setGravity(Gravity.CENTER);
             loc.setText(recLoc);
+            loc.setTextColor(Color.WHITE);
 
             TextView dateText = new TextView(getContext());
             dateText.setLayoutParams((layoutParams));
             dateText.setGravity(Gravity.CENTER);
             dateText.setText(res.getDate());
+            dateText.setTextColor(Color.WHITE);
 
             TextView buffer = new TextView(getContext());
             buffer.setLayoutParams((layoutParams));
             buffer.setGravity(Gravity.CENTER);
             buffer.setText("------------");
+            buffer.setTextColor(Color.WHITE);
 
             if (layout != null) {
                 Button button = binding.pastResButton;

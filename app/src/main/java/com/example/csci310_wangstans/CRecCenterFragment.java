@@ -2,6 +2,7 @@ package com.example.csci310_wangstans;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -122,6 +123,7 @@ public class CRecCenterFragment extends Fragment {
         binding.name.setText("Cromwell Track");
         // End of Nav Bar
 
+        // Setup Date picker
         DatePicker datePicker = binding.datePicker;
 
         Calendar today = Calendar.getInstance();
@@ -169,6 +171,7 @@ public class CRecCenterFragment extends Fragment {
             noResText.setLayoutParams((layoutParams));
             noResText.setGravity(Gravity.CENTER);
             noResText.setText("No times are available for this day. Please try another day.");
+            noResText.setTextColor(Color.WHITE);
             layout.addView(noResText);
             return;
         }
@@ -181,25 +184,27 @@ public class CRecCenterFragment extends Fragment {
             timeText.setLayoutParams(layoutParams);
             timeText.setGravity(Gravity.CENTER);
             timeText.setText(time);
+            timeText.setTextColor(Color.WHITE);
 
             int availSpots = 1 - booking.getNumUsers();
             TextView availText = new TextView(getContext());
             availText.setLayoutParams((layoutParams));
             availText.setGravity(Gravity.CENTER);
             availText.setText(availSpots + " spots open");
+            availText.setTextColor(Color.WHITE);
 
             Button actionButton = new Button(getContext());
             actionButton.setLayoutParams(layoutParams);
+            actionButton.setBackgroundColor(Color.BLACK);
+            actionButton.setTextColor(Color.WHITE);
 
             String userId = "" + usersFile.getInt("currUser", 0);
 
             if (util.userInRes(userId, booking, sharedBookings)) {
-                System.out.println("enter");
                 actionButton.setEnabled(false);
                 actionButton.setText("Booked!");
             }
             else {
-                System.out.println("did not enter");
                 if (availSpots == 0) {
                     if (sharedWaitlist.getString(booking.getResId(), "").contains(userId)) {
                         actionButton.setEnabled(false);
