@@ -64,7 +64,6 @@
         android:layout_marginTop="28dp"
         android:text="N/A"
         android:textColor="@color/white"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/uscid" />
 
@@ -74,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
         android:layout_marginTop="28dp"
-        android:text="Name "
+        android:text="Email "
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +87,6 @@
         android:layout_marginTop="28dp"
         android:text="N/A"
         android:textColor="@color/white"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name" />
 
@@ -100,7 +98,6 @@
         android:layout_marginTop="32dp"
         android:text="N/A"
         android:textColor="@color/white"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email" />
 
@@ -133,9 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="224dp"
         android:layout_marginTop="28dp"
-        android:text="N/A"
         android:textColor="@color/white"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/username" />
 
