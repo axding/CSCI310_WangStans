@@ -187,5 +187,8 @@
         <action
             android:id="@+id/action_ProfileFragment_to_AboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_ProfileFragment_to_LoginPage"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>
