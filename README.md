@@ -16,6 +16,11 @@ To run the app,
 * You can cancel current reservation with a button. 
 6. Changes should propagate.
 
+2.5 Changes
+Please refer to the documentation in our written submission. 
+The tickets are labeled for person who completed the ticket, whether it is product or sprint backlog, its status, and whether its a bug fix or feature.
+This should suffice the improvements of the Android app since 2.4
+
 For most updated changes please pull.
 https://github.com/axding/CSCI310_WangStans
-* You cwan click the "Past Reservation" button to see past reservations.
+* You can click the "Past Reservation" button to see past reservations.
